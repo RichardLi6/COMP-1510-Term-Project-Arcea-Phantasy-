@@ -4,6 +4,24 @@ A01378156
 Richard Li
 """
 from random import *
+def get_user_choice():
+    available_choices = {"1": "north", "2": "east", "3": "south", "4": "west"}
+    while True:
+        print("\n|-Pick a direction-|\n"
+              "| 1. North         |\n"
+              "| 2. East          |\n"
+              "| 3. South         |\n"
+              "| 4. West          |\n"
+              "|------------------|\n")
+        user_choice = input("Pick a direction: ").strip()
+
+        if user_choice in list(available_choices.keys()):
+            return available_choices[user_choice]
+        else:
+            print("Please enter a number that corresponds to a direction")
+            continue
+
+
 def validate_move(rows, columns, character, direction, board):
     directions = {"north": -1, "south": 1, "east": 1, "west": -1}
 
