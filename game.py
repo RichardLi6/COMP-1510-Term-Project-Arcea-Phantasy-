@@ -4,6 +4,14 @@ A01378156
 Richard Li
 """
 from random import *
+def choose_character():
+    pass
+
+
+def make_character():
+    pass
+
+
 def describe_current_location(row, col, board, character):
     # listOfValues = list(board.values())[0]
     # print()
