@@ -4,6 +4,25 @@ A01378156
 Richard Li
 """
 from random import *
+def make_board(rows, columns):
+
+    game_board = {}
+
+    for x in range(rows):
+        for y in range(columns):
+            # space = f"|{x},{y}|"
+            space = "|   |"
+            if randint(1, 2) == 2:
+                game_board[(x, y)] = "|   |"
+            else:
+                game_board[(x, y)] = f"{space}"
+
+    if rows < 2 or columns < 2:
+        raise Exception("Sorry no numbers below 2")
+
+    return game_board
+
+
 def get_user_choice():
     available_choices = {"1": "north", "2": "east", "3": "south", "4": "west"}
     while True:
