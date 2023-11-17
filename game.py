@@ -4,6 +4,23 @@ A01378156
 Richard Li
 """
 from random import *
+def describe_current_location(row, col, board, character):
+    # listOfValues = list(board.values())[0]
+    # print()
+    # print(listOfValues[0])
+    print(board) #kani tung mag pakita og taas na coordinate ----------------------------- coords
+    for x in range(row):
+        print(" --- "*10)
+        for y in range(col):
+            if x == character["X-coordinate"] and y == character["Y-coordinate"]:
+                board[(x, y)] = "| # |"
+                print(board[(x, y)], end="")
+            else:
+                print(board[(x, y)], end="")
+        print()
+
+
+
 def make_board(rows, columns):
 
     game_board = {}
