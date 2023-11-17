@@ -4,6 +4,27 @@ A01378156
 Richard Li
 """
 from random import *
+def validate_move(rows, columns, character, direction, board):
+    directions = {"north": -1, "south": 1, "east": 1, "west": -1}
+
+    if direction == "north" or direction == "south":
+        to_be_y_coordinate = character["X-coordinate"] + directions[direction]
+
+        if to_be_y_coordinate < 0 or to_be_y_coordinate == columns:
+            describe_current_location(rows, columns, board, character)
+            return False
+        else:
+            return True
+
+    if direction == "west" or direction == "east":
+        to_be_x_coordinate = character["Y-coordinate"] + directions[direction]
+
+        if to_be_x_coordinate < 0 or to_be_x_coordinate == rows:
+            describe_current_location(rows, columns, board, character)
+            return False
+        else:
+            return True
+
 
 def move_character(direction, character, board):
     direction_keys = {"north": (0, -1), "east": (1, 0), "south": (0, 1), "west": (-1, 0)}
