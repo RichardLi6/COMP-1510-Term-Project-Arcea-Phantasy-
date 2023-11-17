@@ -5,7 +5,11 @@ Richard Li
 """
 from random import *
 
-
+def move_character(direction, character, board):
+    direction_keys = {"north": (0, -1), "east": (1, 0), "south": (0, 1), "west": (-1, 0)}
+    board[(character["X-coordinate"], character["Y-coordinate"])] = "|   |"
+    character["Y-coordinate"] += direction_keys[direction][0]
+    character["X-coordinate"] += direction_keys[direction][1]
 
 
 def simple_game():
