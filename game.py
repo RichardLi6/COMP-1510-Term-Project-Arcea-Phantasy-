@@ -140,10 +140,24 @@ def move_character(direction, character, board):
 def random_encounter():
     random_number = randint(1, 4)
     if random_number == 3:
-        return True
+        print("You encountered an enemy! ")
+        return fight_or_flee()
     else:
         return False
 
+
+def fight_or_flee():
+    while True:
+        user_input = input("Do you want to 1. fight or 2. flee?").strip()
+        print(user_input)
+        print(type(user_input))
+        if user_input != "1" and user_input != "2":
+            print("Please type either 1 or 2")
+            continue
+        elif user_input == "1":
+            return True
+        else:
+            return False
 
 
 def simple_game():
@@ -164,8 +178,12 @@ def simple_game():
             describe_current_location(rows, cols, board, character)
             you_encountered_a_random_entity = random_encounter()
             if you_encountered_a_random_entity:
+                print(you_encountered_a_random_entity)
                 continue
-            continue
+            else:
+                print(you_encountered_a_random_entity)
+                continue
+
 
 
 def main():
