@@ -4,11 +4,52 @@ A01378156
 Richard Li
 """
 from random import *
+
+
 def choose_character():
-    pass
+    valid_answers = {"1": "Warrior", "2": "Ranger", "3": "Mage"}
+    while True:
+        user_class = input("|---Pick a Class---|\n"
+                           "| 1. Warrior       |\n"
+                           "| 2. Ranger        |\n"
+                           "| 3. Mage          |\n"
+                           "|------------------|\n"
+                           "Type number of Chosen Class: ")
+
+        if user_class not in valid_answers:
+            print("Please type in a number corresponding to the chosen class")
+            continue
+        else:
+            return valid_answers[user_class]
 
 
-def make_character():
+def make_character(character):
+    character_stats = {
+        "warrior": {"Health": 30, "Attack": 6, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
+                    "Level": 0},
+        "ranger": {"Health": 25, "Attack": 5, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
+                   "Level": 0},
+        "mage": {"Health": 20, "Attack": 8, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
+                 "Level": 0}
+    }
+
+    return character_stats[character]
+
+def level_up(character, chosen_character):
+    if (character["Level"] == 1) and (character["Experience"] >= 50):
+        character["Level"] += 1
+        if chosen_character == "Warrior":
+            character["Health"] +=
+            character["Attack"] +=
+            character["Experience"] -= 50
+    elif (character["Level"] == 2) and (character["Experience"] >= 65):
+        character["Level"] += 1
+    elif (character["Level"] == 3) and (character["Experience"] >= 90):
+        character["Level"] += 1
+    elif (character["Level"] == 4) and (character["Experience"] >= 110):
+        character["Level"] += 1
+    elif (character["Level"] == 5) and (character["Experience"] >= 135):
+        character["Level"] += 1
     pass
 
 
