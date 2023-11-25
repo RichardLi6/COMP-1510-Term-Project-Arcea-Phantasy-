@@ -25,22 +25,23 @@ def choose_character():
 
 def make_character(character):
     character_stats = {
-        "warrior": {"Health": 30, "Attack": 6, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                    "Level": 0},
-        "ranger": {"Health": 25, "Attack": 5, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                   "Level": 0},
-        "mage": {"Health": 20, "Attack": 8, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                 "Level": 0}
+        "Warrior": {"Health": 30, "Attack": 6, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
+                    "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0},
+        "Ranger": {"Health": 25, "Attack": 5, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
+                   "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0},
+        "Mage": {"Health": 20, "Attack": 8, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
+                 "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0}
     }
 
     return character_stats[character]
+
 
 def level_up(character, chosen_character):
     if (character["Level"] == 1) and (character["Experience"] >= 50):
         character["Level"] += 1
         if chosen_character == "Warrior":
-            character["Health"] +=
-            character["Attack"] +=
+            character["Health"] += 1
+            character["Attack"] += 1
             character["Experience"] -= 50
     elif (character["Level"] == 2) and (character["Experience"] >= 65):
         character["Level"] += 1
@@ -57,7 +58,7 @@ def describe_current_location(row, col, board, character):
     # listOfValues = list(board.values())[0]
     # print()
     # print(listOfValues[0])
-    print(board) #kani tung mag pakita og taas na coordinate ----------------------------- coords
+    # print(board) #kani tung mag pakita og taas na coordinate ----------------------------- coords
     for x in range(row):
         print(" --- "*10)
         for y in range(col):
@@ -67,7 +68,7 @@ def describe_current_location(row, col, board, character):
             else:
                 print(board[(x, y)], end="")
         print()
-
+    print(" --- " * 10)
 
 
 def make_board(rows, columns):
@@ -136,6 +137,15 @@ def move_character(direction, character, board):
     character["X-coordinate"] += direction_keys[direction][1]
 
 
+def random_encounter():
+    random_number = randint(1, 4)
+    if random_number == 3:
+        return True
+    else:
+        return False
+
+
+
 def simple_game():
     print("Hello World, Overwrite this game introduction")
     chosen_character = choose_character()
@@ -152,6 +162,9 @@ def simple_game():
         if valid_move:
             move_character(direction, character, board)
             describe_current_location(rows, cols, board, character)
+            you_encountered_a_random_entity = random_encounter()
+            if you_encountered_a_random_entity:
+                continue
             continue
 
 
@@ -159,6 +172,7 @@ def main():
     """
     run the game :
     """
+    simple_game()
     pass
 
 
