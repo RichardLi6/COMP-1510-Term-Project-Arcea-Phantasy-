@@ -26,11 +26,11 @@ def choose_character():
 def make_character(character):
     character_stats = {
         "Warrior": {"Health": 30, "Attack": 6, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                    "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0},
+                    "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0, "Skill": {1: ("Double Slash", 10) }},
         "Ranger": {"Health": 25, "Attack": 5, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                   "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0},
+                   "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0, "Skill": {1: ("Arrow Shot", 10) }},
         "Mage": {"Health": 20, "Attack": 8, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                 "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0}
+                 "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0, "Skill": {1: ("Fireball", 10) }}
     }
 
     return character_stats[character]
@@ -137,16 +137,16 @@ def move_character(direction, character, board):
     character["X-coordinate"] += direction_keys[direction][1]
 
 
-def random_encounter():
+def random_encounter(character):
     random_number = randint(1, 4)
-    if random_number == 3:
+    if random_number == 3 or random_number == 2:
         print("You encountered an enemy! ")
-        return fight_or_flee()
+        fight_or_flee(character)
     else:
         return False
 
 
-def fight_or_flee():
+def fight_or_flee(character):
     while True:
         user_input = input("Do you want to 1. fight or 2. flee?").strip()
         print(user_input)
@@ -155,28 +155,29 @@ def fight_or_flee():
             print("Please type either 1 or 2")
             continue
         elif user_input == "1":
-            return True
+            return fighting(character)
         else:
             return False
 
 
-def fighting(character, monster):
+def fighting(character):
+    monster = {"Health": 100, "Attack": 3}
     choices = {
         "1": "slash",
-        "2": "spell",
+        "2": "skill",
         "3": "quit"
                }
     print("You encountered a monstered")
 
     while character["Health"] >= 0 and monster["Health"] >= 0:
 
-        user_input = input("What is your move? 1, 2, 3")
+        user_input = input("What is your move? 1 AA, 2 Skill, 3 Quit")
 
         if user_input not in choices:
             print("Please choose a number from the choices given")
             continue
         if user_input == "3":
-            print(f"You succesfully Flee you pussy")
+            print(f"You succesfully Flee you coward")
             return
         elif user_input == "1":
             monster["Health"] -= character["Attack"]
@@ -186,12 +187,12 @@ def fighting(character, monster):
                 print(f"You slashed and hit the monster for {character["Attack"]} leaving its Health {monster["Health"]}")
                 continue
         else:
-            user_spell = input(f"What spell do you want to use ").strip()
-            monster["Health"] -= character["Spell"][user_spell]
+            user_skill = int(input(f"What skill do you want to use, type 1"))
+            monster["Health"] -= character["Skill"][user_skill][1]
             if monster["Health"] <= 0:
                 break
             else:
-                print(f"You used {user_spell} and hit the monster for {character["Spell"][user_spell]} "
+                print(f"You used {user_skill} and hit the monster for {character["Skill"][user_skill][1]} "
                       f"leaving its Health {monster["Health"]}")
                 continue
 
@@ -214,12 +215,12 @@ def simple_game():
         if valid_move:
             move_character(direction, character, board)
             describe_current_location(rows, cols, board, character)
-            you_encountered_a_random_entity = random_encounter()
+            you_encountered_a_random_entity = random_encounter(character)
             if you_encountered_a_random_entity:
-                print(you_encountered_a_random_entity)
+                print(f"You encountered a monster")
                 continue
             else:
-                print(you_encountered_a_random_entity)
+
                 continue
 
 
