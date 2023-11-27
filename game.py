@@ -26,11 +26,14 @@ def choose_character():
 def make_character(character):
     character_stats = {
         "Warrior": {"Health": 30, "Attack": 6, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                    "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0, "Skill": {1: ("Double Slash", 10) }},
+                    "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0,
+                    "Skill": {1: ("Double Slash", 10), 2: ("Vertical Slash", 10) }},
         "Ranger": {"Health": 25, "Attack": 5, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                   "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0, "Skill": {1: ("Arrow Shot", 10) }},
+                   "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0,
+                   "Skill": {1: ("Arrow Shot", 10), 2: ("Quick Slash", 10) }},
         "Mage": {"Health": 20, "Attack": 8, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                 "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0, "Skill": {1: ("Fireball", 10) }}
+                 "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0,
+                 "Skill": {1: ("Fireball", 10), 2: ("Fissure", 10)}}
     }
 
     return character_stats[character]
@@ -187,7 +190,11 @@ def fighting(character):
                 print(f"You slashed and hit the monster for {character["Attack"]} leaving its Health {monster["Health"]}")
                 continue
         else:
-            user_skill = int(input(f"What skill do you want to use, type 1"))
+            index = 1
+            for skill in character["Skill"].values():
+                print(f"{index} Skill: {skill[0]}  Damage: {skill[1]}")
+                index += 1
+            user_skill = int(input(f"| What skill do you want to use |"))
             monster["Health"] -= character["Skill"][user_skill][1]
             if monster["Health"] <= 0:
                 break
