@@ -160,6 +160,44 @@ def fight_or_flee():
             return False
 
 
+def fighting(character, monster):
+    choices = {
+        "1": "slash",
+        "2": "spell",
+        "3": "quit"
+               }
+    print("You encountered a monstered")
+
+    while character["Health"] >= 0 and monster["Health"] >= 0:
+
+        user_input = input("What is your move? 1, 2, 3")
+
+        if user_input not in choices:
+            print("Please choose a number from the choices given")
+            continue
+        if user_input == "3":
+            print(f"You succesfully Flee you pussy")
+            return
+        elif user_input == "1":
+            monster["Health"] -= character["Attack"]
+            if monster["Health"] <= 0:
+                break
+            else:
+                print(f"You slashed and hit the monster for {character["Attack"]} leaving its Health {monster["Health"]}")
+                continue
+        else:
+            user_spell = input(f"What spell do you want to use ").strip()
+            monster["Health"] -= character["Spell"][user_spell]
+            if monster["Health"] <= 0:
+                break
+            else:
+                print(f"You used {user_spell} and hit the monster for {character["Spell"][user_spell]} "
+                      f"leaving its Health {monster["Health"]}")
+                continue
+
+    print(f"You defeated the monster")
+
+
 def simple_game():
     print("Hello World, Overwrite this game introduction")
     chosen_character = choose_character()
