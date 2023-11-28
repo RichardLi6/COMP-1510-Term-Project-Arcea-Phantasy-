@@ -27,7 +27,7 @@ def make_character(character):
     character_stats = {
         "Warrior": {"Health": 30, "Attack": 6, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
                     "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0,
-                    "Skill": {1: ("Double Slash", 10), 2: ("Vertical Slash", 10) }},
+                    "Skill": {1: ("Double Slash", 10), 2: ("Vertical Slash", 10)}},
         "Ranger": {"Health": 25, "Attack": 5, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
                    "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 0,
                    "Skill": {1: ("Arrow Shot", 10), 2: ("Quick Slash", 10) }},
@@ -144,7 +144,7 @@ def random_encounter(character):
     random_number = randint(1, 4)
     if random_number == 3 or random_number == 2:
         print("You encountered an enemy! ")
-        fight_or_flee(character)
+        return fight_or_flee(character)
     else:
         return False
 
@@ -152,33 +152,50 @@ def random_encounter(character):
 def fight_or_flee(character):
     while True:
         user_input = input("Do you want to 1. fight or 2. flee?").strip()
-        print(user_input)
-        print(type(user_input))
+        # print(user_input) -------------------------------
+        # print(type(user_input)) ----------------------------------3
         if user_input != "1" and user_input != "2":
             print("Please type either 1 or 2")
             continue
         elif user_input == "1":
-            return fighting(character)
+            return True
         else:
             return False
 
 
-def fighting(character):
+def fight_with_skill(character, monster):
+    index = 1
+    for skill in character["Skill"].values():
+        print(f"{index} Skill: {skill[0]}  Damage: {skill[1]}")
+        index += 1
+    user_choose_skill = int(input(f"| What skill do you want to use |"))
+    chosen_skill_name = character["Skill"][user_choose_skill][0]
+    chosen_skill_damage = character["Skill"][user_choose_skill][1]
+    monster["Health"] -= chosen_skill_damage
+    if monster["Health"] <= 0:
+        return
+    else:
+        print(f"You used {chosen_skill_name} and hit the monster for {chosen_skill_damage} "
+              f"leaving its Health {monster["Health"]}")
+        return
+
+
+def fight(character):
     monster = {"Health": 100, "Attack": 3}
-    choices = {
+    user_choices = {
         "1": "slash",
         "2": "skill",
         "3": "quit"
                }
-    print("You encountered a monstered")
+    print("You encountered a monster")
 
     while character["Health"] >= 0 and monster["Health"] >= 0:
 
-        user_input = input("What is your move? 1 AA, 2 Skill, 3 Quit")
+        user_input = input("What is your move? 1 Normal Attack, 2 Skill Skill, 3 Flee: \n")
 
-        if user_input not in choices:
+        if user_input not in user_choices:
             print("Please choose a number from the choices given")
-            continue
+
         if user_input == "3":
             print(f"You succesfully Flee you coward")
             return
@@ -188,20 +205,8 @@ def fighting(character):
                 break
             else:
                 print(f"You slashed and hit the monster for {character["Attack"]} leaving its Health {monster["Health"]}")
-                continue
         else:
-            index = 1
-            for skill in character["Skill"].values():
-                print(f"{index} Skill: {skill[0]}  Damage: {skill[1]}")
-                index += 1
-            user_skill = int(input(f"| What skill do you want to use |"))
-            monster["Health"] -= character["Skill"][user_skill][1]
-            if monster["Health"] <= 0:
-                break
-            else:
-                print(f"You used {user_skill} and hit the monster for {character["Skill"][user_skill][1]} "
-                      f"leaving its Health {monster["Health"]}")
-                continue
+            fight_with_skill(character, monster)
 
     print(f"You defeated the monster")
 
@@ -224,12 +229,11 @@ def simple_game():
             describe_current_location(rows, cols, board, character)
             you_encountered_a_random_entity = random_encounter(character)
             if you_encountered_a_random_entity:
-                print(f"You encountered a monster")
+                fight(character)
                 continue
             else:
 
                 continue
-
 
 
 def main():
