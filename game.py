@@ -2,6 +2,7 @@
 Richard Maceda
 A01378156
 Richard Li
+A00995183
 """
 from random import *
 from character import *
@@ -174,6 +175,7 @@ def random_encounter(character):
     random_number = randint(1, 4)
     if random_number == 3 or random_number == 2:
         print("You encountered an enemy! ")
+        print()
         return fight_or_flee(character)
     else:
         return False
@@ -194,19 +196,37 @@ def fight_or_flee(character):
 
 
 def fight_with_skill(character, monster):
+
     index = 1
+
     for skill in character["Skill"].values():
-        print(f"{index} Skill: {skill[0]}  Damage: {skill[1]}")
+        print(f"{index} Skill: {skill[0]}  Damage: {skill[1]} Mana Cost: {skill[2]}")
         index += 1
-    user_choose_skill = int(input(f"| What skill do you want to use |"))
+
+    user_choose_skill = int(input(f"| What skill do you want to use | "))
+    print()
+
     chosen_skill_name = character["Skill"][user_choose_skill][0]
     chosen_skill_damage = character["Skill"][user_choose_skill][1]
+    chosen_skill_mana_cost = character["Skill"][user_choose_skill][2]
+
+    if character["Mana"] < chosen_skill_mana_cost:
+
+        print(f"You need more Mana to cast {chosen_skill_name}")
+        print()
+        return
+    else:
+        character["Mana"] -= chosen_skill_mana_cost
+        print(f"You started casting {chosen_skill_name}")
+
+
     monster["Health"] -= chosen_skill_damage
     if monster["Health"] <= 0:
         return
     else:
-        print(f"You used {chosen_skill_name} and hit the monster for {chosen_skill_damage} "
+        print(f"{chosen_skill_name} hit the monster for {chosen_skill_damage} "
               f"leaving its Health {monster["Health"]}")
+        print()
         return
 
 
@@ -218,6 +238,8 @@ def fight(character):
         "3": "quit"
                }
     print("You encountered a monster")
+    print()
+    print(f"Current Monster Health: {monster["Health"]}")
 
     while character["Health"] >= 0 and monster["Health"] >= 0:
 
@@ -225,9 +247,10 @@ def fight(character):
 
         if user_input not in user_choices:
             print("Please choose a number from the choices given")
+            print()
 
         if user_input == "3":
-            print(f"You succesfully Flee you coward")
+            print(f"You successfully Flee you coward")
             return
         elif user_input == "1":
             monster["Health"] -= character["Attack"]
@@ -235,7 +258,11 @@ def fight(character):
                 break
             else:
                 print(f"You slashed and hit the monster for {character["Attack"]} leaving its Health {monster["Health"]}")
+                print()
         else:
+            print("This is your available mana")
+            print(character["Mana"])
+            print()
             fight_with_skill(character, monster)
 
     print(f"You defeated the monster")
