@@ -1,7 +1,9 @@
 """
-A docstring
+Richard Maceda
+A01378156
+Richard Li
+A00995183
 """
-
 
 def choose_character():
     valid_answers = {"1": "Warrior", "2": "Ranger", "3": "Mage"}
@@ -22,15 +24,15 @@ def choose_character():
 
 def make_character(character):
     character_stats = {
-        "Warrior": {"Health": 30, "Attack": 6, "Dodge": 10, "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                    "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1,
+        "Warrior": {"Health": 30, "Attack": 6, "Mana": 50, "Dodge": 10, "X-coordinate": 0, "Y-coordinate": 0,
+                    "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1,
                     "Skill": {1: ("Double Slash", 10), 2: ("Vertical Slash", 15)}},
-        "Ranger": {"Health": 25, "Attack": 5, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                   "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1,
-                   "Skill": {1: ("Arrow Shot", 10), 2: ("Quick Slash", 15) }},
-        "Mage": {"Health": 20, "Attack": 8, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0, "Experience": 0,
-                 "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1,
-                 "Skill": {1: ("Fireball", 10), 2: ("Fissure", 15)}}
+        "Ranger": {"Health": 25, "Attack": 5, "Mana": 60, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0,
+                   "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1,
+                   "Skill": {1: ("Arrow Shot", 10), 2: ("Quick Slash", 15)}},
+        "Mage": {"Health": 20, "Attack": 8, "Mana": 80, "Dodge": [], "X-coordinate": 0, "Y-coordinate": 0,
+                 "Experience": 0,"Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1,
+                 "Skill": {1: ("Fireball", 10), 2: ("Earth Fissure", 15)}}
     }
 
     return character_stats[character]
