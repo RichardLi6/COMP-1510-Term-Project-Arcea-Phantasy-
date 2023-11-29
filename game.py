@@ -183,6 +183,11 @@ def generate_monster(random_number):
     return monster
 
 
+def monster_attack(character, monster):
+    character["Health"] -= monster["Attack"]
+    print(f"The monster attack you for {monster["Attack"]} leaving you with {character["Health"]} health \n")
+    return
+
 def random_encounter():
     random_number = randint(1, 4)
     if random_number == 3 or random_number == 2:
@@ -242,15 +247,15 @@ def fight_with_skill(character, monster):
     else:
         character["Mana"] -= chosen_skill_mana_cost
         print(f"You started casting {chosen_skill_name}")
+        monster["Health"] -= chosen_skill_damage
 
-
-    monster["Health"] -= chosen_skill_damage
     if monster["Health"] <= 0:
         return
     else:
         print(f"{chosen_skill_name} hit the monster for {chosen_skill_damage} "
               f"leaving its Health {monster["Health"]}")
         print()
+        monster_attack(character, monster)
         return
 
 
@@ -283,6 +288,7 @@ def fight(character):
             else:
                 print(f"You slashed and hit the monster for {character["Attack"]} leaving its Health {monster["Health"]}")
                 print()
+                monster_attack(character, monster)
         else:
             print("This is your available mana")
             print(character["Mana"])
