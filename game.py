@@ -8,7 +8,6 @@ from random import *
 from character import *
 
 
-
 def level_up(character, chosen_character):
     if (character["Level"] == 1) and (character["Experience"] >= 50):
         character["Level"] += 1
@@ -106,7 +105,6 @@ def describe_current_location(row, col, board, character):
 
 
 def make_board(rows, columns):
-
     game_board = {}
 
     for x in range(rows):
@@ -117,6 +115,8 @@ def make_board(rows, columns):
                 game_board[(x, y)] = "|   |"
             else:
                 game_board[(x, y)] = f"{space}"
+
+    game_board["Level"] = 1
 
     if rows < 2 or columns < 2:
         raise Exception("Sorry no numbers below 2")
