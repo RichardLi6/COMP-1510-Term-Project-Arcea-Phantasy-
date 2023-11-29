@@ -128,14 +128,13 @@ def make_board(rows, columns):
 def get_user_choice():
     available_choices = {"1": "north", "2": "east", "3": "south", "4": "west"}
     while True:
-        print("\n Pick a Direction\n "
-              "|-----------------------------|\n"
-              "|    1. North                 |\n"
-              "|    2. East                  |\n"
-              "|    3. South                 |\n"
-              "|    4. West                  |\n"
-              "|-----------------------------|\n")
-        user_choice = input("Pick a direction: ").strip()
+        user_choice = input("\n Pick a Direction\n"
+                            "|-----------------------------|\n"
+                            "|    1. North                 |\n"
+                            "|    2. East                  |\n"
+                            "|    3. South                 |\n"
+                            "|    4. West                  |\n"
+                            "|-----------------------------|\n").strip()
 
         if user_choice in list(available_choices.keys()):
             return available_choices[user_choice]
@@ -280,9 +279,9 @@ def fight(character):
 
         user_input = input("           What is your move?\n"
                            "|----------------------------------------|\n"
-                           "| 1 Normal Attack                        |\n"
-                           "| 2 Skill Skill                          |\n"
-                           "| 3 Flee:                                |\n"
+                           "|    1 Normal Attack                     |\n"
+                           "|    2 Skill Skill                       |\n"
+                           "|    3 Flee:                             |\n"
                            "|----------------------------------------|\n")
 
         if user_input not in user_choices:
