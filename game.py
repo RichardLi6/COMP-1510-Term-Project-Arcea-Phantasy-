@@ -128,12 +128,13 @@ def make_board(rows, columns):
 def get_user_choice():
     available_choices = {"1": "north", "2": "east", "3": "south", "4": "west"}
     while True:
-        print("\n|-Pick a direction-|\n"
-              "| 1. North         |\n"
-              "| 2. East          |\n"
-              "| 3. South         |\n"
-              "| 4. West          |\n"
-              "|------------------|\n")
+        print("\n Pick a Direction"
+              "|-----------------------------|\n"
+              "|    1. North                 |\n"
+              "|    2. East                  |\n"
+              "|    3. South                 |\n"
+              "|    4. West                  |\n"
+              "|-----------------------------|\n")
         user_choice = input("Pick a direction: ").strip()
 
         if user_choice in list(available_choices.keys()):
@@ -188,6 +189,7 @@ def monster_attack(character, monster):
     print(f"The monster attack you for {monster["Attack"]} leaving you with {character["Health"]} health \n")
     return
 
+
 def random_encounter():
     random_number = randint(1, 4)
     if random_number == 3 or random_number == 2:
@@ -203,10 +205,10 @@ def fight_or_flee(random_number):
     while True:
         user_input = input(f"You encountered a wild {monster["Name"]}\n"
                            f"What do you want to do?.\n"
-                           "|-----------------------|\n"
-                           "| 1. fight              |\n"
-                           "| 2. flee?              |\n"
-                           "|-----------------------|\n"
+                           "|---------------------------------|\n"
+                           "|    1. fight                     |\n"
+                           "|    2. flee?                     |\n"
+                           "|---------------------------------|\n"
                            "").strip()
         if user_input != "1" and user_input != "2":
             print("Please type either 1 or 2")
@@ -259,20 +261,29 @@ def fight_with_skill(character, monster):
         return
 
 
+def is_alive(character):
+    if character["Health"] <= 0:
+        return False
+    else:
+        return True
+
+
 def fight(character):
     monster = {"Health": 100, "Attack": 3}
-    user_choices = {
-        "1": "slash",
-        "2": "skill",
-        "3": "quit"
-               }
+    user_choices = ("1", "2", "3")
+
     print("You encountered a monster")
     print()
     print(f"Current Monster Health: {monster["Health"]}")
 
     while character["Health"] >= 0 and monster["Health"] >= 0:
 
-        user_input = input("What is your move? 1 Normal Attack, 2 Skill Skill, 3 Flee: \n")
+        user_input = input("           What is your move?\n"
+                           "|----------------------------------------|\n"
+                           "| 1 Normal Attack                        |\n"
+                           "| 2 Skill Skill                          |\n"
+                           "| 3 Flee:                                |\n"
+                           "|----------------------------------------|\n")
 
         if user_input not in user_choices:
             print("Please choose a number from the choices given")
@@ -295,7 +306,11 @@ def fight(character):
             print()
             fight_with_skill(character, monster)
 
-    print(f"You defeated the monster")
+    if not is_alive(character):
+        print("You died Lmao")
+        return
+    else:
+        print(f"You defeated the monster")
 
 
 def simple_game():
@@ -306,7 +321,7 @@ def simple_game():
     cols = 10
     board = make_board(rows, cols)
     describe_current_location(rows, cols, board, character)
-    while True:
+    while is_alive(character):
         direction = get_user_choice()
         # print(direction)
         valid_move = validate_move(rows, cols, character, direction, board)
@@ -315,10 +330,10 @@ def simple_game():
             move_character(direction, character, board)
             describe_current_location(rows, cols, board, character)
             you_encountered_a_random_entity = random_encounter()
-            if you_encountered_a_random_entity:
+            if you_encountered_a_random_entity and is_alive(character):
                 fight(character)
-                describe_current_location(rows, cols, board, character)
-                continue
+                print("Sheesh")
+
             else:
                 describe_current_location(rows, cols, board, character)
                 continue
