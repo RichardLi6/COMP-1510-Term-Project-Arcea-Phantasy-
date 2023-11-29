@@ -220,8 +220,15 @@ def fight_with_skill(character, monster):
         print(f"{index} Skill: {skill[0]}  Damage: {skill[1]} Mana Cost: {skill[2]}")
         index += 1
 
-    user_choose_skill = int(input(f"| What skill do you want to use | "))
-    print()
+    while True:
+        try:
+            user_choose_skill = int(input(f"| What skill do you want to use | "))
+            print()
+        except ValueError:
+            print("Please enter a number corresponding to skill")
+            continue
+        else:
+            break
 
     chosen_skill_name = character["Skill"][user_choose_skill][0]
     chosen_skill_damage = character["Skill"][user_choose_skill][1]
