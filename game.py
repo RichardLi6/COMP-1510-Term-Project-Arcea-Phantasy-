@@ -172,33 +172,37 @@ def move_character(direction, character, board):
     character["X-coordinate"] += direction_keys[direction][1]
 
 
-def generate_monster():
+def generate_monster(random_number):
     monster_stats_beginner = {
         1: {"Name": "Slime", "Health": 40, "Attack": 5},
         2: {"Name": "Undead", "Health": 70, "Attack": 3},
         3: {"Name": "Imp", "Health": 40, "Attack": 7}
     }
 
-    monster = monster_stats_beginner[randint(1,3)]
+    monster = monster_stats_beginner[random_number]
     return monster
 
 
-
-def random_encounter(character):
+def random_encounter():
     random_number = randint(1, 4)
     if random_number == 3 or random_number == 2:
         print("You encountered an enemy! ")
         print()
-        return fight_or_flee(character)
+        return fight_or_flee(random_number)
     else:
         return False
 
 
-def fight_or_flee(character):
+def fight_or_flee(random_number):
+    monster = generate_monster(random_number)
     while True:
-        user_input = input("Do you want to 1. fight or 2. flee?").strip()
-        # print(user_input) -------------------------------
-        # print(type(user_input)) ----------------------------------3
+        user_input = input(f"You encountered a wild {monster["Name"]}\n"
+                           f"What do you want to do?.\n"
+                           "|-----------------------|\n"
+                           "| 1. fight              |\n"
+                           "| 2. flee?              |\n"
+                           "|-----------------------|\n"
+                           "").strip()
         if user_input != "1" and user_input != "2":
             print("Please type either 1 or 2")
             continue
@@ -297,13 +301,13 @@ def simple_game():
         if valid_move:
             move_character(direction, character, board)
             describe_current_location(rows, cols, board, character)
-            you_encountered_a_random_entity = random_encounter(character)
+            you_encountered_a_random_entity = random_encounter()
             if you_encountered_a_random_entity:
                 fight(character)
-                print(generate_monster())
+                describe_current_location(rows, cols, board, character)
                 continue
             else:
-
+                describe_current_location(rows, cols, board, character)
                 continue
 
 
