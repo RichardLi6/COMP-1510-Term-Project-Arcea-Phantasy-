@@ -4,6 +4,7 @@ A01378156
 Richard Li
 A00995183
 """
+
 from random import *
 from character import *
 
@@ -171,6 +172,18 @@ def move_character(direction, character, board):
     character["X-coordinate"] += direction_keys[direction][1]
 
 
+def generate_monster():
+    monster_stats_beginner = {
+        1: {"Name": "Slime", "Health": 40, "Attack": 5},
+        2: {"Name": "Undead", "Health": 70, "Attack": 3},
+        3: {"Name": "Imp", "Health": 40, "Attack": 7}
+    }
+
+    monster = monster_stats_beginner[randint(1,3)]
+    return monster
+
+
+
 def random_encounter(character):
     random_number = randint(1, 4)
     if random_number == 3 or random_number == 2:
@@ -287,6 +300,7 @@ def simple_game():
             you_encountered_a_random_entity = random_encounter(character)
             if you_encountered_a_random_entity:
                 fight(character)
+                print(generate_monster())
                 continue
             else:
 
