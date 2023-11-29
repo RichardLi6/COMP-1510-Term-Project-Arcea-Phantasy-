@@ -304,6 +304,8 @@ def fight(character):
             print(character["Mana"])
             print()
             fight_with_skill(character, monster)
+            character["Mana"] += 10
+            character["Health"] += (character["Health"] + 25) % 30
 
     if not is_alive(character):
         print("You died Lmao")
