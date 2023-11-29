@@ -128,7 +128,7 @@ def make_board(rows, columns):
 def get_user_choice():
     available_choices = {"1": "north", "2": "east", "3": "south", "4": "west"}
     while True:
-        print("\n Pick a Direction"
+        print("\n Pick a Direction\n "
               "|-----------------------------|\n"
               "|    1. North                 |\n"
               "|    2. East                  |\n"

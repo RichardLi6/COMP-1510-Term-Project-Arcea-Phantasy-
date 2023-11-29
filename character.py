@@ -8,12 +8,13 @@ A00995183
 def choose_character():
     valid_answers = {"1": "Warrior", "2": "Ranger", "3": "Mage"}
     while True:
-        user_class = input("|---Pick a Class---|\n"
-                           "| 1. Warrior       |\n"
-                           "| 2. Ranger        |\n"
-                           "| 3. Mage          |\n"
-                           "|------------------|\n"
-                           "Type number of Chosen Class: ")
+        user_class = input("        Pick a Class\n"
+                           "|---------------------------|\n"
+                           "|    1. Warrior             |\n"
+                           "|    2. Ranger              |\n"
+                           "|    3. Mage                |\n"
+                           "|---------------------------|\n"
+                           "Type number of Chosen Class: \n")
 
         if user_class not in valid_answers:
             print("Please type in a number corresponding to the chosen class")
