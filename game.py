@@ -301,33 +301,28 @@ def fight(character, monster):
                 print()
                 monster_attack(character, monster)
         else:
-            #Show Character Details
-            # print("You:")
-            # print(f"Health {character["Health"][0]}/{character["Health"][1]}")
-            # print(f"Mana: {character["Mana"][0]}/{character["Mana"][1]}" )
-            # print()
-            # print("Enemy: ")
-            # print(f"Current Monster Health: {monster["Health"]}")
-            # print()
             fight_with_skill(character, monster)
 
-        character["Mana"][0] = (character["Mana"][0] + 3) % character["Mana"][1]
-        print("Your mana replenish by 3")
+        character["Mana"][0] = min(character["Mana"][0] + 5, character["Mana"][1])
+        print("Your mana replenish by 5")
 
-        character["Health"][0] = (character["Health"][0] + 5) - (character["Health"][0] + 5) % character["Health"][1]
-        print("Your health replenish by 5")
-
-    character["Mana"][0] = (character["Mana"][0] + 35) - ((character["Mana"][0] + 35) % character["Mana"][1])
-    print("Your mana replenish by 35")
-
-    character["Health"][0] = (character["Health"][0] + 25) - ((character["Health"][0] + 25) % character["Health"][1])
-    print("Your health replenish by 25")
+        character["Health"][0] = min(character["Health"][0] + 3, character["Health"][1])
+        print("Your health replenish by 3")
 
     if not is_alive(character):
         print("You died Lmao")
         return
     else:
-        print(f"You defeated the monster")
+        print(f"- - - - - - - - - - You defeated the monster - - - - - - - - - -")
+        character["Mana"][0] = min(character["Mana"][0] + 35, character["Mana"][1])
+        print("Your mana replenish by 35")
+
+        character["Health"][0] = min(character["Health"][0] + 25, character["Health"][1])
+        print("Your health replenish by 25")
+
+        print(f"Health {character["Health"][0]}/{character["Health"][1]}")
+        print(f"Mana: {character["Mana"][0]}/{character["Mana"][1]}")
+        print()
 
 
 def simple_game():
