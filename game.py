@@ -174,9 +174,9 @@ def move_character(direction, character, board):
 
 def generate_monster(random_number):
     monster_stats_beginner = {
-        1: {"Name": "Slime", "Health": 40, "Attack": 5},
-        2: {"Name": "Undead", "Health": 70, "Attack": 3},
-        3: {"Name": "Imp", "Health": 40, "Attack": 7}
+        1: {"Name": "Slime", "Health": 40, "Attack": 5, "Experience": 15},
+        2: {"Name": "Undead", "Health": 70, "Attack": 3, "Experience": 15},
+        3: {"Name": "Imp", "Health": 40, "Attack": 7, "Experience": 15}
     }
 
     monster = monster_stats_beginner[random_number]
@@ -184,8 +184,8 @@ def generate_monster(random_number):
 
 
 def monster_attack(character, monster):
-    character["Health"] -= monster["Attack"]
-    print(f"The monster attack you for {monster["Attack"]} leaving you with {character["Health"]} health \n")
+    character["Health"][0] -= monster["Attack"]
+    print(f"The monster attack you for {monster["Attack"]} leaving you with {character["Health"][0]} health \n")
     return
 
 
@@ -240,13 +240,13 @@ def fight_with_skill(character, monster):
     chosen_skill_damage = character["Skill"][user_choose_skill][1]
     chosen_skill_mana_cost = character["Skill"][user_choose_skill][2]
 
-    if character["Mana"] < chosen_skill_mana_cost:
+    if character["Mana"][0] < chosen_skill_mana_cost:
 
         print(f"You need more Mana to cast {chosen_skill_name}")
         print()
         return
     else:
-        character["Mana"] -= chosen_skill_mana_cost
+        character["Mana"][0] -= chosen_skill_mana_cost
         print(f"You started casting {chosen_skill_name}")
         monster["Health"] -= chosen_skill_damage
 
@@ -261,7 +261,7 @@ def fight_with_skill(character, monster):
 
 
 def is_alive(character):
-    if character["Health"] <= 0:
+    if character["Health"][0] <= 0:
         return False
     else:
         return True
@@ -275,7 +275,7 @@ def fight(character):
     print()
     print(f"Current Monster Health: {monster["Health"]}")
 
-    while character["Health"] >= 0 and monster["Health"] >= 0:
+    while character["Health"][0] >= 0 and monster["Health"] >= 0:
 
         user_input = input("           What is your move?\n"
                            "|----------------------------------------|\n"
@@ -296,16 +296,28 @@ def fight(character):
             if monster["Health"] <= 0:
                 break
             else:
-                print(f"You slashed and hit the monster for {character["Attack"]} leaving its Health {monster["Health"]}")
+                print(f"You slashed the monster for {character["Attack"]} leaving its Health {monster["Health"]}")
                 print()
                 monster_attack(character, monster)
         else:
-            print("This is your available mana")
-            print(character["Mana"])
+            print("This is your available Mana:")
+            print(f"{character["Mana"][0]}/{character["Mana"][1]}" )
+            print("This is your available Health:")
+            print(f"{character["Health"][0]}/{character["Health"][1]}")
             print()
             fight_with_skill(character, monster)
-            character["Mana"] += 10
-            character["Health"] += (character["Health"] + 25) % 30
+
+        character["Mana"][0] = (character["Mana"][0] + 3) % character["Mana"][1]
+        print("Your mana replenish by 3")
+
+        character["Health"][0] = (character["Health"][0] + 5) - (character["Health"][0] + 5) % character["Health"][1]
+        print("Your health replenish by 5")
+
+    character["Mana"][0] = (character["Mana"][0] + 35) - ((character["Mana"][0] + 35) % character["Mana"][1])
+    print("Your mana replenish by 35")
+
+    character["Health"][0] = (character["Health"][0] + 25) - ((character["Health"][0] + 25) % character["Health"][1])
+    print("Your health replenish by 25")
 
     if not is_alive(character):
         print("You died Lmao")
