@@ -11,7 +11,7 @@ from random_event import *
 
 
 def level_up(character, chosen_character):
-    if (character["Level"] == 1) and (character["Experience"] >= 50):
+    if (character["Level "] == 1) and (character["Experience"] >= 50):
         character["Level"] += 1
         if chosen_character == "Warrior":
             character["Health"] += 15
