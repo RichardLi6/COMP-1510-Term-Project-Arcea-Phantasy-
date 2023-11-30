@@ -1,0 +1,42 @@
+"""
+Richard Maceda
+A01378156
+Richard Li
+A00995183
+"""
+from random import randint
+
+def random_encounter(monster):
+    random_number = randint(1, 4)
+    if random_number == 3 or random_number == 2:
+        print("You encountered an enemy! ")
+        print()
+        return fight_or_flee(monster)
+    else:
+        return False
+
+
+def fight_or_flee(monster):
+    while True:
+        user_input = input(f"You encountered a wild {monster["Name"]}\n"
+                           f"What do you want to do?.\n"
+                           "|---------------------------------|\n"
+                           "|    1. fight                     |\n"
+                           "|    2. flee?                     |\n"
+                           "|---------------------------------|\n"
+                           "").strip()
+        if user_input != "1" and user_input != "2":
+            print("Please type either 1 or 2")
+            continue
+        elif user_input == "1":
+            return True
+        else:
+            return False
+
+
+def main():
+    pass
+
+
+if __name__ == "__main__":
+    main()
