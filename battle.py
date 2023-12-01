@@ -10,9 +10,9 @@ from game import is_alive
 
 def generate_monster():
     beginner_monsters_list = {
-        1: {"Name": "Slime", "Health": 60, "Attack": 6, "Experience": 15},
-        2: {"Name": "Undead", "Health": 80, "Attack": 4, "Experience": 15},
-        3: {"Name": "Imp", "Health": 60, "Attack": 7, "Experience": 15}
+        1: {"Name": "Slime", "Health": 60, "Attack": (6, 10), "Experience": 15},
+        2: {"Name": "Undead", "Health": 80, "Attack": (4, 7), "Experience": 15},
+        3: {"Name": "Imp", "Health": 60, "Attack": (7, 12), "Experience": 15}
     }
 
     random_number = randint(1, 3)
@@ -82,9 +82,18 @@ def fight(character, monster):
 
 
 def monster_attack(character, monster):
-    character["Health"][0] -= monster["Attack"]
-    print(f"The monster attack you for {monster['Attack']} leaving you with {character['Health'][0]} health \n")
-    return
+    critical = randint(1, 10)
+    critical_range = [1, 3, 7]
+    if critical not in critical_range:
+        character["Health"][0] -= monster["Attack"][0]
+        print(f"The monster attack you for {monster['Attack']} leaving you with {character['Health'][0]} health \n")
+        return
+    else:
+        character["Health"][0] -= monster["Attack"][1]
+        print("The monster caught hit you in a vulnerable spot!")
+        print(f"The monster attack you for {monster['Attack'][1]} leaving you with {character['Health'][0]} health \n")
+        return
+
 
 
 def fight_with_skill(character, monster):
