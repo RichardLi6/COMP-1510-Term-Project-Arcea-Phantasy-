@@ -129,13 +129,13 @@ def make_board(rows, columns):
 def get_user_choice():
     available_choices = {"1": "north", "2": "east", "3": "south", "4": "west"}
     while True:
-        user_choice = input("\n Pick a Direction\n"
-                            "|-----------------------------|\n"
-                            "|    1. North                 |\n"
-                            "|    2. East                  |\n"
-                            "|    3. South                 |\n"
-                            "|    4. West                  |\n"
-                            "|-----------------------------|\n").strip()
+        user_choice = input("\nPick a number representing the direction\n"
+                            "|----------------------------------------|\n"
+                            "|    1 = North                           |\n"
+                            "|    2 = East                            |\n"
+                            "|    3 = South                           |\n"
+                            "|    4 = West                            |\n"
+                            "|----------------------------------------|\n").strip()
 
         if user_choice in list(available_choices.keys()):
             return available_choices[user_choice]
@@ -251,12 +251,12 @@ def fight(character, monster):
         print("Enemy: ")
         print(f"Current Monster Health: {monster['Health']}")
         print()
-        user_input = input("           What is your move?\n"
-                           "|----------------------------------------|\n"
-                           "|    1 Normal Attack                     |\n"
-                           "|    2 Skill Attack                      |\n"
-                           "|    3 Flee:                             |\n"
-                           "|----------------------------------------|\n")
+        user_input = input("What is your move? Choose a number from 1 to 3\n"
+                           "|---------------------------------------------|\n"
+                           "|    1 = Normal Attack                          |\n"
+                           "|    2 = Skill Attack                           |\n"
+                           "|    3 = Flee                                  |\n"
+                           "|---------------------------------------------|\n")
 
         if user_input not in user_choices:
             print("Please choose a number from the choices given")
