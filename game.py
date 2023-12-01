@@ -8,7 +8,7 @@ A00995183
 from random import *
 import character as char
 import random_event as re
-
+import battle
 
 def describe_current_location(row, col, board, character):
     # listOfValues = list(board.values())[0]
@@ -94,134 +94,11 @@ def move_character(direction, character, board):
     character["X-coordinate"] += direction_keys[direction][1]
 
 
-def generate_monster():
-    beginner_monsters_list = {
-        1: {"Name": "Slime", "Health": 40, "Attack": 5, "Experience": 15},
-        2: {"Name": "Undead", "Health": 70, "Attack": 3, "Experience": 15},
-        3: {"Name": "Imp", "Health": 40, "Attack": 7, "Experience": 15}
-    }
-
-    random_number = randint(1, 3)
-    monster = beginner_monsters_list[random_number]
-    return monster
-
-
-def monster_attack(character, monster):
-    character["Health"][0] -= monster["Attack"]
-    print(f"The monster attack you for {monster['Attack']} leaving you with {character['Health'][0]} health \n")
-    return
-
-
-def fight_with_skill(character, monster):
-
-    index = 1
-
-    print(chr(0x2550) * 60)
-    for skill in character["Skill"].values():
-        print(f"{index} Skill: {skill[0]}  Damage: {skill[1]} Mana Cost: {skill[2]}")
-        index += 1
-    print(chr(0x2550) * 60)
-    print()
-
-    while True:
-        user_choose_skill = int(input("What skill do you want to use :\n"))
-        if user_choose_skill not in list(character['Skill'].keys()):
-            print()
-            print("Please enter a number corresponding to skill")
-
-        else:
-            break
-
-    chosen_skill_name = character["Skill"][user_choose_skill][0]
-    chosen_skill_damage = character["Skill"][user_choose_skill][1]
-    chosen_skill_mana_cost = character["Skill"][user_choose_skill][2]
-
-    if character["Mana"][0] < chosen_skill_mana_cost:
-
-        print(f"You need more Mana to cast {chosen_skill_name}")
-        print()
-        return
-    else:
-        character["Mana"][0] -= chosen_skill_mana_cost
-        print(f"You started casting {chosen_skill_name}")
-        monster["Health"] -= chosen_skill_damage
-
-    if monster["Health"] <= 0:
-        return
-    else:
-        print(f"{chosen_skill_name} hit the monster for {chosen_skill_damage} "
-              f"leaving its Health {monster['Health']}")
-        print()
-        monster_attack(character, monster)
-        return
-
-
 def is_alive(character):
     if character["Health"][0] <= 0:
         return False
     else:
         return True
-
-
-def fight(character, monster):
-    user_choices = ("1", "2", "3")
-
-    while character["Health"][0] >= 0 and monster["Health"] > 0:
-        print(chr(0x2550)*30)
-        print("You:")
-        print(f"Health {character['Health'][0]}/{character['Health'][1]}")
-        print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
-        print()
-        print("Enemy: ")
-        print(f"Current Monster Health: {monster['Health']}")
-        print(chr(0x2550) * 30)
-        print()
-        user_input = input("What is your move? Choose a number from 1 to 3\n"
-                           "|-----------------------------------------------|\n"
-                           "|    1 = Normal Attack                          |\n"
-                           "|    2 = Skill Attack                           |\n"
-                           "|    3 = Flee                                   |\n"
-                           "|-----------------------------------------------|\n")
-
-        if user_input not in user_choices:
-            print("Please choose a number from the choices given")
-            print()
-            continue
-
-        if user_input == "3":
-            print(f"You successfully Flee you coward")
-            return
-        elif user_input == "1":
-            monster["Health"] -= character["Attack"]
-            if monster["Health"] <= 0:
-                break
-            else:
-                print(f"You slashed the monster for {character['Attack']} leaving its Health {monster['Health']}")
-                print()
-                monster_attack(character, monster)
-        else:
-            fight_with_skill(character, monster)
-
-        character["Mana"][0] = min(character["Mana"][0] + 5, character["Mana"][1])
-        print("Your mana replenish by 5")
-
-        character["Health"][0] = min(character["Health"][0] + 3, character["Health"][1])
-        print("Your health replenish by 3")
-
-    if not is_alive(character):
-        print("You died Lmao")
-        return
-    else:
-        print((chr(0x2550) * 15) + " You defeated the monster " + (chr(0x2550) * 15))
-        character["Mana"][0] = min(character["Mana"][0] + 35, character["Mana"][1])
-        print("Your mana replenish by 35")
-
-        character["Health"][0] = min(character["Health"][0] + 25, character["Health"][1])
-        print("Your health replenish by 25")
-
-        print(f"Health {character['Health'][0]}/{character['Health'][1]}")
-        print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
-        print()
 
 
 def simple_game():
@@ -240,10 +117,10 @@ def simple_game():
         if valid_move:
             move_character(direction, character, board)
             describe_current_location(rows, cols, board, character)
-            monster = generate_monster()
+            monster = battle.generate_monster()
             you_encountered_a_foe = re.random_encounter(monster)
             if you_encountered_a_foe and is_alive(character):
-                fight(character, monster)
+                battle.fight(character, monster)
                 print("Sheesh")
 
             else:
