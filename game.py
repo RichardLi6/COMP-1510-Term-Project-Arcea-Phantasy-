@@ -6,8 +6,8 @@ A00995183
 """
 
 from random import *
-from character import *
-from random_event import *
+import character as char
+import random_event as re
 
 
 def level_up(character, chosen_character):
@@ -195,9 +195,11 @@ def fight_with_skill(character, monster):
 
     index = 1
 
+    print(chr(0x2550) * 60)
     for skill in character["Skill"].values():
         print(f"{index} Skill: {skill[0]}  Damage: {skill[1]} Mana Cost: {skill[2]}")
         index += 1
+    print(chr(0x2550) * 60)
     print()
 
     while True:
@@ -205,7 +207,7 @@ def fight_with_skill(character, monster):
         if user_choose_skill not in list(character['Skill'].keys()):
             print()
             print("Please enter a number corresponding to skill")
-            continue
+
         else:
             break
 
@@ -243,24 +245,27 @@ def is_alive(character):
 def fight(character, monster):
     user_choices = ("1", "2", "3")
 
-    while character["Health"][0] >= 0 and monster["Health"] >= 0:
+    while character["Health"][0] >= 0 and monster["Health"] > 0:
+        print(chr(0x2550)*30)
         print("You:")
         print(f"Health {character['Health'][0]}/{character['Health'][1]}")
         print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
         print()
         print("Enemy: ")
         print(f"Current Monster Health: {monster['Health']}")
+        print(chr(0x2550) * 30)
         print()
         user_input = input("What is your move? Choose a number from 1 to 3\n"
-                           "|---------------------------------------------|\n"
+                           "|-----------------------------------------------|\n"
                            "|    1 = Normal Attack                          |\n"
                            "|    2 = Skill Attack                           |\n"
-                           "|    3 = Flee                                  |\n"
-                           "|---------------------------------------------|\n")
+                           "|    3 = Flee                                   |\n"
+                           "|-----------------------------------------------|\n")
 
         if user_input not in user_choices:
             print("Please choose a number from the choices given")
             print()
+            continue
 
         if user_input == "3":
             print(f"You successfully Flee you coward")
@@ -286,7 +291,7 @@ def fight(character, monster):
         print("You died Lmao")
         return
     else:
-        print(f"- - - - - - - - - - You defeated the monster - - - - - - - - - -")
+        print((chr(0x2550) * 15) + " You defeated the monster " + (chr(0x2550) * 15))
         character["Mana"][0] = min(character["Mana"][0] + 35, character["Mana"][1])
         print("Your mana replenish by 35")
 
@@ -300,8 +305,8 @@ def fight(character, monster):
 
 def simple_game():
     print("Hello World, Overwrite this game introduction")
-    chosen_character = choose_character()
-    character = make_character(chosen_character)
+    chosen_character = char.choose_character()
+    character = char.make_character(chosen_character)
     rows = 10
     cols = 10
     board = make_board(rows, cols)
@@ -315,7 +320,7 @@ def simple_game():
             move_character(direction, character, board)
             describe_current_location(rows, cols, board, character)
             monster = generate_monster()
-            you_encountered_a_foe = random_encounter(monster)
+            you_encountered_a_foe = re.random_encounter(monster)
             if you_encountered_a_foe and is_alive(character):
                 fight(character, monster)
                 print("Sheesh")
