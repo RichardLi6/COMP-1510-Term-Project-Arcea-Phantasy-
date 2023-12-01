@@ -10,9 +10,9 @@ from game import is_alive
 
 def generate_monster():
     beginner_monsters_list = {
-        1: {"Name": "Slime", "Health": 40, "Attack": 5, "Experience": 15},
-        2: {"Name": "Undead", "Health": 70, "Attack": 3, "Experience": 15},
-        3: {"Name": "Imp", "Health": 40, "Attack": 7, "Experience": 15}
+        1: {"Name": "Slime", "Health": 60, "Attack": 6, "Experience": 15},
+        2: {"Name": "Undead", "Health": 80, "Attack": 4, "Experience": 15},
+        3: {"Name": "Imp", "Health": 60, "Attack": 7, "Experience": 15}
     }
 
     random_number = randint(1, 3)
