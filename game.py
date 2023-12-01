@@ -187,7 +187,7 @@ def generate_monster():
 
 def monster_attack(character, monster):
     character["Health"][0] -= monster["Attack"]
-    print(f"The monster attack you for {monster["Attack"]} leaving you with {character["Health"][0]} health \n")
+    print(f"The monster attack you for {monster['Attack']} leaving you with {character['Health'][0]} health \n")
     return
 
 
@@ -202,7 +202,7 @@ def fight_with_skill(character, monster):
 
     while True:
         user_choose_skill = int(input("What skill do you want to use :\n"))
-        if user_choose_skill not in list(character["Skill"].keys()):
+        if user_choose_skill not in list(character['Skill'].keys()):
             print()
             print("Please enter a number corresponding to skill")
             continue
@@ -227,7 +227,7 @@ def fight_with_skill(character, monster):
         return
     else:
         print(f"{chosen_skill_name} hit the monster for {chosen_skill_damage} "
-              f"leaving its Health {monster["Health"]}")
+              f"leaving its Health {monster['Health']}")
         print()
         monster_attack(character, monster)
         return
@@ -245,11 +245,11 @@ def fight(character, monster):
 
     while character["Health"][0] >= 0 and monster["Health"] >= 0:
         print("You:")
-        print(f"Health {character["Health"][0]}/{character["Health"][1]}")
-        print(f"Mana: {character["Mana"][0]}/{character["Mana"][1]}")
+        print(f"Health {character['Health'][0]}/{character['Health'][1]}")
+        print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
         print()
         print("Enemy: ")
-        print(f"Current Monster Health: {monster["Health"]}")
+        print(f"Current Monster Health: {monster['Health']}")
         print()
         user_input = input("           What is your move?\n"
                            "|----------------------------------------|\n"
@@ -270,7 +270,7 @@ def fight(character, monster):
             if monster["Health"] <= 0:
                 break
             else:
-                print(f"You slashed the monster for {character["Attack"]} leaving its Health {monster["Health"]}")
+                print(f"You slashed the monster for {character['Attack']} leaving its Health {monster['Health']}")
                 print()
                 monster_attack(character, monster)
         else:
@@ -293,8 +293,8 @@ def fight(character, monster):
         character["Health"][0] = min(character["Health"][0] + 25, character["Health"][1])
         print("Your health replenish by 25")
 
-        print(f"Health {character["Health"][0]}/{character["Health"][1]}")
-        print(f"Mana: {character["Mana"][0]}/{character["Mana"][1]}")
+        print(f"Health {character['Health'][0]}/{character['Health'][1]}")
+        print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
         print()
 
 

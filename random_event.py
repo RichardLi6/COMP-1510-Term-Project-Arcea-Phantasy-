@@ -18,7 +18,7 @@ def random_encounter(monster):
 
 def fight_or_flee(monster):
     while True:
-        user_input = input(f"You encountered a wild {monster["Name"]}\n"
+        user_input = input(f"You encountered a wild {monster['Name']}\n"
                            f"What do you want to do?.\n"
                            "|---------------------------------|\n"
                            "|    1. fight                     |\n"
