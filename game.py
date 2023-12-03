@@ -10,6 +10,7 @@ import character as char
 import random_event as re
 import battle
 
+
 def describe_current_location(row, col, board, character):
     # listOfValues = list(board.values())[0]
     # print()
@@ -101,6 +102,26 @@ def is_alive(character):
         return True
 
 
+def achieved_goal(character):
+
+    level_1_bosses = {
+        1: {"Name": "4th Pillar: Dragon", "Health": 500, "Attack": (15, 35), "Experience": 300},
+        #Li Do the other 3 Pillars
+    }
+
+    if character["X-coordinate"] == 8 and character["Y-coordinate"] == 1:
+        print("You have reached one of the four pillars of this stage")
+
+        while True:
+            battle.fight(character, level_1_bosses[1])
+
+            if level_1_bosses[1]['Health'] <= 0:
+                print("You defeated one of the 4 Pillars: Dragon")
+            else:
+                print("You died try, again next time")
+            break
+
+
 def simple_game():
     print("Hello World, Overwrite this game introduction")
     chosen_character = char.choose_character()
@@ -110,6 +131,7 @@ def simple_game():
     board = make_board(rows, cols)
     describe_current_location(rows, cols, board, character)
     while is_alive(character):
+        # print(board)
         direction = get_user_choice()
         # print(direction)
         valid_move = validate_move(rows, cols, character, direction, board)
@@ -117,6 +139,7 @@ def simple_game():
         if valid_move:
             move_character(direction, character, board)
             describe_current_location(rows, cols, board, character)
+            achieved_goal(character)
             monster = battle.generate_monster()
             you_encountered_a_foe = re.random_encounter(monster)
             if you_encountered_a_foe and is_alive(character):
