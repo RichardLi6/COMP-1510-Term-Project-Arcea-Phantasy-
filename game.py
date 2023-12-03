@@ -117,6 +117,8 @@ def achieved_goal(character):
 
             if level_1_bosses[1]['Health'] <= 0:
                 print("You defeated one of the 4 Pillars: Dragon")
+            elif level_1_bosses[1]['Health'] >= 0 and character['Health'][0] > 0:
+                print("You successfully run from the 4th Pillar Boss")
             else:
                 print("You died try, again next time")
             break
@@ -141,7 +143,7 @@ def simple_game():
             describe_current_location(rows, cols, board, character)
             achieved_goal(character)
             monster = battle.generate_monster()
-            you_encountered_a_foe = re.random_encounter(monster)
+            you_encountered_a_foe = re.random_encounter(monster, character)
             if you_encountered_a_foe and is_alive(character):
                 battle.fight(character, monster)
                 print("Sheesh")

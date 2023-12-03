@@ -6,7 +6,12 @@ A00995183
 """
 from random import randint
 
-def random_encounter(monster):
+
+def random_encounter(monster, character):
+
+    if character['X-coordinate'] == 8 and character['Y-coordinate'] == 1:
+        return False
+
     random_number = randint(1, 4)
     if random_number == 3 or random_number == 2:
         print("You encountered an enemy! ")
