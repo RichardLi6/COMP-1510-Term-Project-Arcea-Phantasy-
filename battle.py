@@ -59,11 +59,16 @@ def fight(character, monster):
         else:
             fight_with_skill(character, monster)
 
-        character["Mana"][0] = min(character["Mana"][0] + 5, character["Mana"][1])
-        print("Your mana replenish by 5")
+        if is_alive(character):
 
-        character["Health"][0] = min(character["Health"][0] + 3, character["Health"][1])
-        print("Your health replenish by 3")
+            character["Mana"][0] = min(character["Mana"][0] + 5, character["Mana"][1])
+            print("Your mana replenish by 5")
+
+            character["Health"][0] = min(character["Health"][0] + 3, character["Health"][1])
+            print("Your health replenish by 3")
+
+        else:
+            break
 
     if not is_alive(character):
         print("You died Lmao")
@@ -86,14 +91,13 @@ def monster_attack(character, monster):
     critical_range = [1, 3, 7]
     if critical not in critical_range:
         character["Health"][0] -= monster["Attack"][0]
-        print(f"The monster attack you for {monster['Attack']} leaving you with {character['Health'][0]} health \n")
-        return
+        print(f"The monster attack you for {monster['Attack'][0]} leaving you with {character['Health'][0]} health \n")
+
     else:
         character["Health"][0] -= monster["Attack"][1]
         print("The monster caught hit you in a vulnerable spot!")
         print(f"The monster attack you for {monster['Attack'][1]} leaving you with {character['Health'][0]} health \n")
-        return
-
+    return
 
 
 def fight_with_skill(character, monster):
