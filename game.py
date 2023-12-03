@@ -105,8 +105,10 @@ def is_alive(character):
 def achieved_goal(character):
 
     level_1_bosses = {
-        1: {"Name": "4th Pillar: Dragon", "Health": 500, "Attack": (15, 35), "Experience": 300},
-        #Li Do the other 3 Pillars
+        1: {"Name": "North Pillar: Black Tortoise", "Health": 700, "Attack": (10, 20), "Dodge": 0, "Experience": 300},
+        {"Name": "East Pillar: Azure Dragon", "Health": 550, "Attack": (15, 35), "Dodge": 10, "Experience": 300},
+        {"Name": "West Pillar: White Tiger", "Health": 400, "Attack": (15, 35), "Dodge": 20, "Experience": 300},
+        {"Name": "South Pillar: Vermilion Bird", "Health": 500, "Attack": (20, 30), "Dodge": 10, "Experience": 300}
     }
 
     if character["X-coordinate"] == 8 and character["Y-coordinate"] == 1:
@@ -116,9 +118,9 @@ def achieved_goal(character):
             battle.fight(character, level_1_bosses[1])
 
             if level_1_bosses[1]['Health'] <= 0:
-                print("You defeated one of the 4 Pillars: Dragon")
+                print("You defeated one of the 4 pillars")
             elif level_1_bosses[1]['Health'] >= 0 and character['Health'][0] > 0:
-                print("You successfully run from the 4th Pillar Boss")
+                print("You successfully run from the Pillar Boss")
             else:
                 print("You died try, again next time")
             break
