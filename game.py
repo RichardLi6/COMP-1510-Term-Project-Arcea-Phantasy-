@@ -114,16 +114,14 @@ def achieved_goal(character):
     if character["X-coordinate"] == 8 and character["Y-coordinate"] == 1:
         print("You have reached one of the four pillars of this stage")
 
-        while True:
-            battle.fight(character, level_1_bosses[1])
+        battle.fight(character, level_1_bosses[1])
 
-            if level_1_bosses[1]['Health'] <= 0:
-                print("You defeated one of the 4 pillars")
-            elif level_1_bosses[1]['Health'] >= 0 and character['Health'][0] > 0:
-                print("You successfully run from the Pillar Boss")
-            else:
-                print("You died try, again next time")
-            break
+        if level_1_bosses[1]['Health'] <= 0:
+            print("You defeated one of the 4 pillars")
+        elif level_1_bosses[1]['Health'] >= 0 and character['Health'][0] > 0:
+            print("You successfully run from the Pillar Boss")
+        else:
+            print("You died try, again next time")
 
 
 def simple_game():

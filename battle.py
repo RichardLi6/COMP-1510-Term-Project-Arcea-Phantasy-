@@ -20,19 +20,40 @@ def generate_monster():
     return monster
 
 
+def fight_introduction(character, monster):
+    print(chr(0x2550) * 30)
+    print("You:")
+    print(f"Health {character['Health'][0]}/{character['Health'][1]}")
+    print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
+    print()
+    print("Enemy: ")
+    print(f"{monster['Name']}")
+    print(f"Health: {monster['Health']}")
+    print(chr(0x2550) * 30)
+    print()
+
+
+def after_fight(character, monster):
+    print((chr(0x2550) * 15) + " You defeated the monster " + (chr(0x2550) * 15))
+    character["Mana"][0] = min(character["Mana"][0] + 35, character["Mana"][1])
+    print("Your mana replenish by 35")
+
+    character["Health"][0] = min(character["Health"][0] + 25, character["Health"][1])
+    print("Your health replenish by 25")
+
+    print(f"Health {character['Health'][0]}/{character['Health'][1]}")
+    print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
+    print((chr(0x2550) * 56))
+    print()
+
+
+
 def fight(character, monster):
     user_choices = ("1", "2", "3")
 
     while character["Health"][0] >= 0 and monster["Health"] > 0:
-        print(chr(0x2550)*30)
-        print("You:")
-        print(f"Health {character['Health'][0]}/{character['Health'][1]}")
-        print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
-        print()
-        print("Enemy: ")
-        print(f"Current Monster Health: {monster['Health']}")
-        print(chr(0x2550) * 30)
-        print()
+        fight_introduction(character, monster)
+
         user_input = input("What is your move? Choose a number from 1 to 3\n"
                            "|-----------------------------------------------|\n"
                            "|    1 = Normal Attack                          |\n"
@@ -74,16 +95,17 @@ def fight(character, monster):
         print("You died Lmao")
         return
     else:
-        print((chr(0x2550) * 15) + " You defeated the monster " + (chr(0x2550) * 15))
-        character["Mana"][0] = min(character["Mana"][0] + 35, character["Mana"][1])
-        print("Your mana replenish by 35")
-
-        character["Health"][0] = min(character["Health"][0] + 25, character["Health"][1])
-        print("Your health replenish by 25")
-
-        print(f"Health {character['Health'][0]}/{character['Health'][1]}")
-        print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
-        print()
+        after_fight(character, monster)
+        # print((chr(0x2550) * 15) + " You defeated the monster " + (chr(0x2550) * 15))
+        # character["Mana"][0] = min(character["Mana"][0] + 35, character["Mana"][1])
+        # print("Your mana replenish by 35")
+        #
+        # character["Health"][0] = min(character["Health"][0] + 25, character["Health"][1])
+        # print("Your health replenish by 25")
+        #
+        # print(f"Health {character['Health'][0]}/{character['Health'][1]}")
+        # print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
+        # print()
 
 
 def monster_attack(character, monster):
