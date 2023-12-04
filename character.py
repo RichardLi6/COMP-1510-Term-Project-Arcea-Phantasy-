@@ -41,80 +41,101 @@ def make_character(character):
 
 
 def level_up(character, chosen_character):
-    if (character["Level "] == 1) and (character["Experience"] >= 50):
+    level_requirements = {1: 50, 2: 65, 3: 90, 4: 110, 5: 135}
+    stat_increases = {
+        "Warrior": {"Health": 15, "Attack": 6},
+        "Ranger": {"Health": 12, "Attack": 5},
+        "Mage": {"Health": 10, "Attack": 8}
+    }
+    current_level = character["Level"]
+    if current_level in level_requirements and character["Experience"] >= level_requirements[current_level]:
         character["Level"] += 1
-        if chosen_character == "Warrior":
-            character["Health"] += 15
-            character["Attack"] += 6
-            character["Experience"] -= 50
-        if chosen_character == "Ranger":
-            character["Health"] += 12
-            character["Attack"] += 5
-            character["Experience"] -= 50
-        if chosen_character == "Mage":
-            character["Health"] += 10
-            character["Attack"] += 8
-            character["Experience"] -= 50
-    elif (character["Level"] == 2) and (character["Experience"] >= 65):
-        character["Level"] += 1
-        if chosen_character == "Warrior":
-            character["Health"] += 15
-            character["Attack"] += 6
-            character["Experience"] -= 65
-        if chosen_character == "Ranger":
-            character["Health"] += 12
-            character["Attack"] += 5
-            character["Experience"] -= 65
-        if chosen_character == "Mage":
-            character["Health"] += 10
-            character["Attack"] += 8
-            character["Experience"] -= 65
-    elif (character["Level"] == 3) and (character["Experience"] >= 90):
-        character["Level"] += 1
-        if chosen_character == "Warrior":
-            character["Health"] += 15
-            character["Attack"] += 6
-            character["Experience"] -= 90
-        if chosen_character == "Ranger":
-            character["Health"] += 12
-            character["Attack"] += 5
-            character["Experience"] -= 90
-        if chosen_character == "Mage":
-            character["Health"] += 10
-            character["Attack"] += 8
-            character["Experience"] -= 90
-    elif (character["Level"] == 4) and (character["Experience"] >= 110):
-        character["Level"] += 1
-        if chosen_character == "Warrior":
-            character["Health"] += 15
-            character["Attack"] += 6
-            character["Experience"] -= 110
-        if chosen_character == "Ranger":
-            character["Health"] += 12
-            character["Attack"] += 5
-            character["Experience"] -= 110
-        if chosen_character == "Mage":
-            character["Health"] += 10
-            character["Attack"] += 8
-            character["Experience"] -= 110
-    elif (character["Level"] == 5) and (character["Experience"] >= 135):
-        if chosen_character == "Warrior":
-            character["Health"] += 15
-            character["Attack"] += 6
-            character["Experience"] -= 135
-        if chosen_character == "Mage":
-            character["Health"] += 10
-            character["Attack"] += 8
-            character["Experience"] -= 135
-        if chosen_character == "Ranger":
-            character["Health"] += 12
-            character["Attack"] += 5
-            character["Experience"] -= 135
-            character["Dodge"] += 10
-        if chosen_character == "Mage":
-            character["Health"] += 10
-            character["Attack"] += 8
-            character["Experience"] -= 135
+        character["Experience"] -= level_requirements[current_level]
+
+        if chosen_character in stat_increases:
+            for stat, value in stat_increases[chosen_character].items():
+                character[stat] += value
+
+            # Special case for Ranger at level 6, get extra dodge
+            if chosen_character == "Ranger" and current_level == 5:
+                character["Dodge"] += 10
+            if chosen_character == "Warrior" and current_level == 4:
+                character["Health"] += 10
+# def level_up(character, chosen_character):
+#     if (character["Level "] == 1) and (character["Experience"] >= 50):
+#         character["Level"] += 1
+#         if chosen_character == "Warrior":
+#             character["Health"] += 15
+#             character["Attack"] += 6
+#             character["Experience"] -= 50
+#         if chosen_character == "Ranger":
+#             character["Health"] += 12
+#             character["Attack"] += 5
+#             character["Experience"] -= 50
+#         if chosen_character == "Mage":
+#             character["Health"] += 10
+#             character["Attack"] += 8
+#             character["Experience"] -= 50
+#     elif (character["Level"] == 2) and (character["Experience"] >= 65):
+#         character["Level"] += 1
+#         if chosen_character == "Warrior":
+#             character["Health"] += 15
+#             character["Attack"] += 6
+#             character["Experience"] -= 65
+#         if chosen_character == "Ranger":
+#             character["Health"] += 12
+#             character["Attack"] += 5
+#             character["Experience"] -= 65
+#         if chosen_character == "Mage":
+#             character["Health"] += 10
+#             character["Attack"] += 8
+#             character["Experience"] -= 65
+#     elif (character["Level"] == 3) and (character["Experience"] >= 90):
+#         character["Level"] += 1
+#         if chosen_character == "Warrior":
+#             character["Health"] += 15
+#             character["Attack"] += 6
+#             character["Experience"] -= 90
+#         if chosen_character == "Ranger":
+#             character["Health"] += 12
+#             character["Attack"] += 5
+#             character["Experience"] -= 90
+#         if chosen_character == "Mage":
+#             character["Health"] += 10
+#             character["Attack"] += 8
+#             character["Experience"] -= 90
+#     elif (character["Level"] == 4) and (character["Experience"] >= 110):
+#         character["Level"] += 1
+#         if chosen_character == "Warrior":
+#             character["Health"] += 15
+#             character["Attack"] += 6
+#             character["Experience"] -= 110
+#         if chosen_character == "Ranger":
+#             character["Health"] += 12
+#             character["Attack"] += 5
+#             character["Experience"] -= 110
+#         if chosen_character == "Mage":
+#             character["Health"] += 10
+#             character["Attack"] += 8
+#             character["Experience"] -= 110
+#     elif (character["Level"] == 5) and (character["Experience"] >= 135):
+#         if chosen_character == "Warrior":
+#             character["Health"] += 15
+#             character["Attack"] += 6
+#             character["Experience"] -= 135
+#         if chosen_character == "Mage":
+#             character["Health"] += 10
+#             character["Attack"] += 8
+#             character["Experience"] -= 135
+#         if chosen_character == "Ranger":
+#             character["Health"] += 12
+#             character["Attack"] += 5
+#             character["Experience"] -= 135
+#             character["Dodge"] += 10
+#         if chosen_character == "Mage":
+#             character["Health"] += 10
+#             character["Attack"] += 8
+#             character["Experience"] -= 135
 
     pass
 
