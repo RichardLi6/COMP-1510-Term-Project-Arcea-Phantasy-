@@ -9,6 +9,7 @@ from random import *
 import character as char
 import random_event as re
 import battle
+import special_tiles as special
 
 
 def describe_current_location(row, col, board, character):
@@ -107,55 +108,6 @@ def is_alive(character):
         return True
 
 
-def in_special_coordinates(character, board):
-    print("You have reached one of the four pillars of this stage")
-    if character["X-coordinate"] == 1 and character["Y-coordinate"] == 1 and board["Level"] == 1:
-        return True
-    if character["X-coordinate"] == 1 and character["Y-coordinate"] == 8 and board["Level"] == 1:
-        return True
-    if character["X-coordinate"] == 8 and character["Y-coordinate"] == 1 and board["Level"] == 1:
-        return True
-    if character["X-coordinate"] == 8 and character["Y-coordinate"] == 8 and board["Level"] == 1:
-        return True
-    return False
-
-
-def which_boss(character):
-    if character["X-coordinate"] == 1 and character["Y-coordinate"] == 1:
-        return 1
-    if character["X-coordinate"] == 1 and character["Y-coordinate"] == 8:
-        return 2
-    if character["X-coordinate"] == 8 and character["Y-coordinate"] == 1:
-        return 3
-    if character["X-coordinate"] == 8 and character["Y-coordinate"] == 8:
-        return 4
-
-
-def achieved_goal(character, board):
-    if in_special_coordinates(character, board):
-        if board["Level"] == 1:
-            level_1_bosses = {
-                1: {"Name": "North Pillar: Black Tortoise", "Health": 700, "Attack": (10, 20), "Dodge": 0,
-                    "Experience": 300},
-                2: {"Name": "East Pillar: Azure Dragon", "Health": 550, "Attack": (15, 35), "Dodge": 10,
-                    "Experience": 300},
-                3: {"Name": "West Pillar: White Tiger", "Health": 400, "Attack": (15, 35), "Dodge": 20,
-                    "Experience": 300},
-                4: {"Name": "South Pillar: Vermilion Bird", "Health": 500, "Attack": (20, 30), "Dodge": 10,
-                    "Experience": 300}
-            }
-            boss = which_boss(character)
-            battle.fight(character, level_1_bosses[boss])
-            if level_1_bosses[1]['Health'] <= 0:
-                print("You defeated one of the 4 pillars")
-            elif level_1_bosses[1]['Health'] >= 0 and character['Health'][0] > 0:
-                print("You successfully run from the Pillar Boss")
-            else:
-                print("You died try, again next time")
-    else:
-        return
-
-
 def simple_game():
     print("Hello World, Overwrite this game introduction")
     chosen_character = char.choose_character()
@@ -173,9 +125,9 @@ def simple_game():
         if valid_move:
             move_character(direction, character, board)
             describe_current_location(rows, cols, board, character)
-            achieved_goal(character, board)
+            special.achieved_goal(character, board)
             monster = battle.generate_monster()
-            you_encountered_a_foe = re.random_encounter(monster, character)
+            you_encountered_a_foe = re.random_encounter(monster, character, board)
             if you_encountered_a_foe and is_alive(character):
                 battle.fight(character, monster)
                 print("Sheesh")
