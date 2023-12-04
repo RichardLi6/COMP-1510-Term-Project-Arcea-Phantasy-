@@ -10,9 +10,9 @@ from game import is_alive
 
 def generate_monster():
     beginner_monsters_list = {
-        1: {"Name": "Slime", "Health": 60, "Attack": (6, 10), "Experience": 15},
-        2: {"Name": "Undead", "Health": 80, "Attack": (4, 7), "Experience": 15},
-        3: {"Name": "Imp", "Health": 60, "Attack": (7, 12), "Experience": 15}
+        1: {"Name": "Slime", "Health": 60, "Attack": (4, 8), "Experience": 15},
+        2: {"Name": "Undead", "Health": 80, "Attack": (3, 5), "Experience": 15},
+        3: {"Name": "Imp", "Health": 45, "Attack": (5, 10), "Experience": 15}
     }
 
     random_number = randint(1, 3)
@@ -33,16 +33,24 @@ def fight_introduction(character, monster):
     print()
 
 
-def after_fight(character):
+def after_fight(character, monster):
+    print()
     print((chr(0x2550) * 15) + " You defeated the monster " + (chr(0x2550) * 15))
+    print()
+
+    character["Experience"] += monster["Experience"]
+    print(f"You gain: {monster['Experience']} Exp from defeating the monster")
+
     character["Mana"][0] = min(character["Mana"][0] + 35, character["Mana"][1])
     print("Your mana replenish by 35")
 
     character["Health"][0] = min(character["Health"][0] + 25, character["Health"][1])
     print("Your health replenish by 25")
 
+    print()
     print(f"Health {character['Health'][0]}/{character['Health'][1]}")
     print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
+    print()
     print((chr(0x2550) * 56))
     print()
 
@@ -94,7 +102,7 @@ def fight(character, monster):
         print("You died Lmao")
         return
     else:
-        after_fight(character)
+        after_fight(character, monster)
 
 
 def monster_attack(character, monster):
