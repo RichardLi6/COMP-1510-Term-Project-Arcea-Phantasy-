@@ -27,13 +27,13 @@ def choose_character():
 def make_character(character):
     character_stats = {
         "Warrior": {"Health": [30, 30], "Attack": 6, "Mana": [50, 50], "X-coordinate": 0, "Y-coordinate": 0,
-                    "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1, "Dodge": 10,
+                    "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1, "Dodge": 10, "Goal": [],
                     "Skill": {1: ("Double Slash", 10, 10), 2: ("Vertical Slash", 15, 20)}},
         "Ranger": {"Health": [25, 25], "Attack": 5, "Mana": [60, 60], "X-coordinate": 0, "Y-coordinate": 0,
-                   "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1, "Dodge": 10,
+                   "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1, "Dodge": 10, "Goal": [],
                    "Skill": {1: ("Arrow Shot", 10, 10), 2: ("Quick Slash", 15, 20)}},
         "Mage": {"Health": [20, 20], "Attack": 8, "Mana": [80, 80], "X-coordinate": 0, "Y-coordinate": 0,
-                 "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1, "Dodge": 10,
+                 "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1, "Dodge": 10, "Goal": [],
                  "Skill": {1: ("Fireball", 10, 10), 2: ("Earth Fissure", 15, 20)}}
     }
 
