@@ -5,11 +5,12 @@ Richard Li
 A00995183
 """
 from random import randint
+from special_tiles import in_special_coordinates
 
 
-def random_encounter(monster, character):
+def random_encounter(monster, character, board):
 
-    if character['X-coordinate'] == 8 and character['Y-coordinate'] == 1:
+    if in_special_coordinates(character, board):
         return False
 
     random_number = randint(1, 4)
