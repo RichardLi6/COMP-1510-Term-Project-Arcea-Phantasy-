@@ -66,13 +66,13 @@ def fight(character, monster):
     while character["Health"][0] >= 0 and monster["Health"] > 0:
         fight_introduction(character, monster)
 
-        user_input = input(f"\n{Fore.WHITE}{chr(0x2554)}{chr(0x2550) * 27}{chr(0x2557)}\n"
-                           f"{Fore.WHITE}{chr(0x2551)}  What do you want to do:  {chr(0x2551)}\n"
-                           f"{Fore.WHITE}{chr(0x2551)}                           {chr(0x2551)}\n"
-                           f"{Fore.WHITE}{chr(0x2551)}    1 = Normal Attack      {chr(0x2551)}\n"
-                           f"{Fore.WHITE}{chr(0x2551)}    2 = Skill Attack       {chr(0x2551)}\n"
-                           f"{Fore.WHITE}{chr(0x2551)}    3 = Flee               {chr(0x2551)}\n"
-                           f"{Fore.WHITE}{chr(0x255A)}{chr(0x2550) * 27}{chr(0x255D)}\n"
+        user_input = input(f"\n{chr(0x2554)}{chr(0x2550) * 27}{chr(0x2557)}\n"
+                           f"{chr(0x2551)}  What do you want to do:  {chr(0x2551)}\n"
+                           f"{chr(0x2551)}                           {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    1 = Normal Attack      {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    2 = Skill Attack       {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    3 = Flee               {chr(0x2551)}\n"
+                           f"{chr(0x255A)}{chr(0x2550) * 27}{chr(0x255D)}\n"
                            "Type a number to corresponding action: \n")
 
         if user_input not in user_choices:
@@ -145,8 +145,9 @@ def fight_with_skill(character, monster):
             print(chr(0x2550) * 60)
             index = 1
             for skill in character["Skill"].values():
-                print(f"{index} {Fore.LIGHTMAGENTA_EX}Skill: {skill[0]}  Damage: {Fore.LIGHTYELLOW_EX}{skill[1]}"
-                      f" Mana Cost: {Fore.LIGHTCYAN_EX}{skill[2]}")
+                print(f"{index} = Skill: {Fore.LIGHTMAGENTA_EX}{skill[0]}", end="")
+                print(f"Damage: {Fore.LIGHTYELLOW_EX}{skill[1]}", end="")
+                print(f" Mana Cost: {Fore.LIGHTCYAN_EX}{skill[2]}", end="")
                 index += 1
             print(chr(0x2550) * 60)
             print()
@@ -165,7 +166,7 @@ def fight_with_skill(character, monster):
         return
     else:
         character["Mana"][0] -= chosen_skill_mana_cost
-        print(f"You started casting {chosen_skill_name}")
+        print(f"You started casting {Fore.LIGHTCYAN_EX}{chosen_skill_name}")
         monster["Health"] -= chosen_skill_damage
 
     if monster["Health"] <= 0:
