@@ -11,6 +11,10 @@ import random_event
 import battle
 import special_tiles
 
+import colorama
+from colorama import Fore, Back, Style
+colorama.init(autoreset=True)
+
 
 def describe_current_location(row, col, board, character):
     # listOfValues = list(board.values())[0]
@@ -21,7 +25,7 @@ def describe_current_location(row, col, board, character):
         print(" --- "*10)
         for y in range(col):
             if x == character["X-coordinate"] and y == character["Y-coordinate"]:
-                board[(x, y)] = "| # |"
+                board[(x, y)] = f"| {Fore.LIGHTYELLOW_EX}#{Fore.RESET} |"
                 print(board[(x, y)], end="")
             else:
                 print(board[(x, y)], end="")
@@ -60,10 +64,10 @@ def get_user_choice():
         user_choice = input(f"\n{chr(0x2554)}{chr(0x2550) * 45}{chr(0x2557)}\n"
                             f"{chr(0x2551)}   Pick a number representing the direction  {chr(0x2551)}\n"
                             f"{chr(0x2551)}{" " * 45}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}    1 = North  {" " * 30}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}    2 = East   {" " * 30}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}    3 = South  {" " * 30}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}    4 = West   {" " * 30}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}{Fore.LIGHTBLUE_EX}    1 = North  {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}{Fore.LIGHTYELLOW_EX}    2 = East   {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}{Fore.LIGHTMAGENTA_EX}    3 = South  {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}{Fore.LIGHTCYAN_EX}    4 = West   {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
                             f"{chr(0x255A)}{chr(0x2550) * 45}{chr(0x255D)}\n"
                             "Type number of corresponding action: \n").strip()
 

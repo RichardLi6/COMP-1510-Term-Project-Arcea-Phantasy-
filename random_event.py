@@ -27,7 +27,7 @@ def random_encounter(monster, character, board):
 
 def fight_or_flee(monster):
     while True:
-        user_input = input(f"You encountered a wild {monster['Name']}!\n"
+        user_input = input(f"\nYou encountered a wild {Fore.LIGHTYELLOW_EX}{monster['Name']}!\n"
                            f"\n{chr(0x2554)}{chr(0x2550) * 29}{chr(0x2557)}\n"
                            f"{chr(0x2551)}   What do you want to do?   {chr(0x2551)}\n"
                            f"{chr(0x2551)}                             {chr(0x2551)}\n"
