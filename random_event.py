@@ -14,9 +14,8 @@ def random_encounter(monster, character, board):
         return False
 
     random_number = randint(1, 4)
+
     if random_number == 3 or random_number == 2:
-        print("You encountered an enemy! ")
-        print()
         return fight_or_flee(monster)
     else:
         return False
@@ -24,12 +23,13 @@ def random_encounter(monster, character, board):
 
 def fight_or_flee(monster):
     while True:
-        user_input = input(f"You encountered a wild {monster['Name']}\n"
-                           f"What do you want to do?.\n"
-                           "|---------------------------------|\n"
-                           "|    1. fight                     |\n"
-                           "|    2. flee?                     |\n"
-                           "|---------------------------------|\n"
+        user_input = input(f"You encountered a wild {monster['Name']}!\n"
+                           f"\n{chr(0x2554)}{chr(0x2550) * 33}{chr(0x2557)}\n"
+                           f"{chr(0x2551)}     What do you want to do?     {chr(0x2551)}\n"
+                           f"{chr(0x2551)}                                 {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    1. fight                     {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    2. flee?                     {chr(0x2551)}\n"
+                           f"{chr(0x255A)}{chr(0x2550) * 33}{chr(0x255D)}\n"
                            "").strip()
         if user_input != "1" and user_input != "2":
             print("Please type either 1 or 2")

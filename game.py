@@ -7,9 +7,9 @@ A00995183
 
 from random import *
 import character as char
-import random_event as re
+import random_event
 import battle
-import special_tiles as special
+import special_tiles
 
 
 def describe_current_location(row, col, board, character):
@@ -57,19 +57,20 @@ def make_board(rows, columns):
 def get_user_choice():
     available_choices = {"1": "north", "2": "east", "3": "south", "4": "west"}
     while True:
-        user_choice = input("\nPick a number representing the direction\n"
-                            "|----------------------------------------|\n"
-                            "|    1 = North                           |\n"
-                            "|    2 = East                            |\n"
-                            "|    3 = South                           |\n"
-                            "|    4 = West                            |\n"
-                            "|----------------------------------------|\n").strip()
+        user_choice = input(f"\n{chr(0x2554)}{chr(0x2550) * 45}{chr(0x2557)}\n"
+                            f"{chr(0x2551)}   Pick a number representing the direction  {chr(0x2551)}\n"
+                            f"{chr(0x2551)}{" " * 45}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}    1 = North  {" " * 30}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}    2 = East   {" " * 30}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}    3 = South  {" " * 30}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}    4 = West   {" " * 30}{chr(0x2551)}\n"
+                            f"{chr(0x255A)}{chr(0x2550) * 45}{chr(0x255D)}\n"
+                            "Type number of corresponding action: \n").strip()
 
         if user_choice in list(available_choices.keys()):
             return available_choices[user_choice]
         else:
             print("Please enter a number that corresponds to a direction")
-            continue
 
 
 def validate_move(rows, columns, character, direction, board):
@@ -109,7 +110,7 @@ def is_alive(character):
 
 
 def simple_game():
-    print("Hello World, Overwrite this game introduction")
+    print("\n\n\nHello World, Overwrite this game introduction")
     chosen_character = char.choose_character()
     character = char.make_character(chosen_character)
     rows = 10
@@ -125,15 +126,16 @@ def simple_game():
         if valid_move:
             move_character(direction, character, board)
             describe_current_location(rows, cols, board, character)
-            special.achieved_goal(character, board)
+            special_tiles.achieved_goal(character, board)
             monster = battle.generate_monster()
-            you_encountered_a_foe = re.random_encounter(monster, character, board)
+            you_encountered_a_foe = random_event.random_encounter(monster, character, board)
             if you_encountered_a_foe and is_alive(character):
                 battle.fight(character, monster)
                 print("Sheesh")
 
             else:
-                continue
+                print("This is the else block")
+            char.level_up(character, chosen_character)
 
 
 def main():

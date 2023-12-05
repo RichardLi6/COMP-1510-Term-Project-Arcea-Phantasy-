@@ -5,16 +5,16 @@ Richard Li
 A00995183
 """
 
-
+# 24 25 27 + 3
 def choose_character():
     valid_answers = {"1": "Warrior", "2": "Ranger", "3": "Mage"}
     while True:
-        user_class = input("        Pick a Class\n"
-                           "|---------------------------|\n"
-                           "|    1. Warrior             |\n"
-                           "|    2. Ranger              |\n"
-                           "|    3. Mage                |\n"
-                           "|---------------------------|\n"
+        user_class = input(f"{chr(0x2554)}{chr(0x2550) * 40}{chr(0x2557)}\n"
+                           f"{chr(0x2551)}{" " * 12}  Pick a Class: {" " * 12}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}   1 = Warrior {" " * 25}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}   2 = Ranger {" " * 26}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}   3 = Mage {" " * 28}{chr(0x2551)}\n"
+                           f"{chr(0x255A)}{chr(0x2550) * 40}{chr(0x255D)}\n"
                            "Type number of Chosen Class: \n")
 
         if user_class not in valid_answers:
@@ -39,6 +39,7 @@ def make_character(character):
 
     return character_stats[character]
 
+
 def level_up(character, chosen_character):
     level_requirements = {1: 50, 2: 65, 3: 90, 4: 110, 5: 135}
     stat_increases = {
@@ -61,7 +62,6 @@ def level_up(character, chosen_character):
             # Special case for Warrior at level 5, get extra Health
             if chosen_character == "Warrior" and current_level == 4:
                 character["Health"] += 10
-    pass
 
 
 def main():

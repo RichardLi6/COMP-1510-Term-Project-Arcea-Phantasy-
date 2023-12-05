@@ -21,6 +21,7 @@ def generate_monster():
 
 
 def fight_introduction(character, monster):
+    print()
     print(chr(0x2550) * 30)
     print("You:")
     print(f"Health {character['Health'][0]}/{character['Health'][1]}")
@@ -61,12 +62,14 @@ def fight(character, monster):
     while character["Health"][0] >= 0 and monster["Health"] > 0:
         fight_introduction(character, monster)
 
-        user_input = input("What is your move? Choose a number from 1 to 3\n"
-                           "|-----------------------------------------------|\n"
-                           "|    1 = Normal Attack                          |\n"
-                           "|    2 = Skill Attack                           |\n"
-                           "|    3 = Flee                                   |\n"
-                           "|-----------------------------------------------|\n")
+        user_input = input(f"\n{chr(0x2554)}{chr(0x2550) * 27}{chr(0x2557)}\n"
+                           f"{chr(0x2551)}  What do you want to do:  {chr(0x2551)}\n"
+                           f"{chr(0x2551)}                           {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    1 = Normal Attack      {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    2 = Skill Attack       {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    3 = Flee               {chr(0x2551)}\n"
+                           f"{chr(0x255A)}{chr(0x2550) * 27}{chr(0x255D)}\n"
+                           "Type a number to corresponding action: \n")
 
         if user_input not in user_choices:
             print("Please choose a number from the choices given")
@@ -76,6 +79,7 @@ def fight(character, monster):
         if user_input == "3":
             print(f"You successfully Flee you coward")
             return
+
         elif user_input == "1":
             monster["Health"] -= character["Attack"]
             if monster["Health"] <= 0:
@@ -84,16 +88,17 @@ def fight(character, monster):
                 print(f"You slashed the monster for {character['Attack']} leaving its Health {monster['Health']}")
                 print()
                 monster_attack(character, monster)
+
         else:
             fight_with_skill(character, monster)
 
         if is_alive(character):
 
             character["Mana"][0] = min(character["Mana"][0] + 5, character["Mana"][1])
-            print("Your mana replenish by 5")
+            print("Your mana passively replenish by 5")
 
             character["Health"][0] = min(character["Health"][0] + 3, character["Health"][1])
-            print("Your health replenish by 3")
+            print("Your health passively replenish by 3")
 
         else:
             break
@@ -127,7 +132,6 @@ def fight_with_skill(character, monster):
         print(f"{index} Skill: {skill[0]}  Damage: {skill[1]} Mana Cost: {skill[2]}")
         index += 1
     print(chr(0x2550) * 60)
-    print()
 
     while True:
         user_choose_skill = int(input("What skill do you want to use :\n"))
