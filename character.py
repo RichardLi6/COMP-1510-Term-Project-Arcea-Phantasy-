@@ -4,6 +4,10 @@ A01378156
 Richard Li
 A00995183
 """
+import colorama
+from colorama import Fore, Back, Style
+colorama.init(autoreset=True)
+
 
 # 24 25 27 + 3
 def choose_character():
@@ -11,9 +15,9 @@ def choose_character():
     while True:
         user_class = input(f"{chr(0x2554)}{chr(0x2550) * 40}{chr(0x2557)}\n"
                            f"{chr(0x2551)}{" " * 12}  Pick a Class: {" " * 12}{chr(0x2551)}\n"
-                           f"{chr(0x2551)}   1 = Warrior {" " * 25}{chr(0x2551)}\n"
-                           f"{chr(0x2551)}   2 = Ranger {" " * 26}{chr(0x2551)}\n"
-                           f"{chr(0x2551)}   3 = Mage {" " * 28}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}{Fore.LIGHTYELLOW_EX}   1 = Warrior {" " * 25}{Fore.RESET}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}{Fore.LIGHTGREEN_EX}   2 = Ranger {" " * 26}{Fore.RESET}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}{Fore.LIGHTMAGENTA_EX}   3 = Mage {" " * 28}{Fore.RESET}{chr(0x2551)}\n"
                            f"{chr(0x255A)}{chr(0x2550) * 40}{chr(0x255D)}\n"
                            "Type number of Chosen Class: \n")
 
