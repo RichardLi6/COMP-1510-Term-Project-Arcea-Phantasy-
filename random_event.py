@@ -7,6 +7,10 @@ A00995183
 from random import randint
 from special_tiles import in_special_coordinates
 
+import colorama
+from colorama import Fore, Back, Style
+colorama.init(autoreset=True)
+
 
 def random_encounter(monster, character, board):
 
@@ -24,12 +28,13 @@ def random_encounter(monster, character, board):
 def fight_or_flee(monster):
     while True:
         user_input = input(f"You encountered a wild {monster['Name']}!\n"
-                           f"\n{chr(0x2554)}{chr(0x2550) * 33}{chr(0x2557)}\n"
-                           f"{chr(0x2551)}     What do you want to do?     {chr(0x2551)}\n"
-                           f"{chr(0x2551)}                                 {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    1. fight                     {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    2. flee?                     {chr(0x2551)}\n"
-                           f"{chr(0x255A)}{chr(0x2550) * 33}{chr(0x255D)}\n"
+                           f"\n{chr(0x2554)}{chr(0x2550) * 29}{chr(0x2557)}\n"
+                           f"{chr(0x2551)}   What do you want to do?   {chr(0x2551)}\n"
+                           f"{chr(0x2551)}                             {chr(0x2551)}\n"
+                           f"{chr(0x2551)}{Fore.LIGHTYELLOW_EX}  1 = fight                  {Fore.RESET}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}{Fore.LIGHTGREEN_EX}  2 = flee?                  {Fore.RESET}{chr(0x2551)}\n"
+                           f"{chr(0x255A)}{chr(0x2550) * 29}{chr(0x255D)}\n"
+                           "Pick a number "
                            "").strip()
         if user_input != "1" and user_input != "2":
             print("Please type either 1 or 2")
