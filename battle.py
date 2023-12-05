@@ -7,6 +7,10 @@ A00995183
 from random import randint
 from game import is_alive
 
+import colorama
+from colorama import Fore, Back, Style
+colorama.init(autoreset=True)
+
 
 def generate_monster():
     beginner_monsters_list = {
@@ -24,12 +28,12 @@ def fight_introduction(character, monster):
     print()
     print(chr(0x2550) * 30)
     print("You:")
-    print(f"Health {character['Health'][0]}/{character['Health'][1]}")
-    print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
+    print(f"Health {Fore.LIGHTGREEN_EX}{character['Health'][0]}/{character['Health'][1]}")
+    print(f"Mana: {Fore.LIGHTCYAN_EX}{character['Mana'][0]}/{character['Mana'][1]}")
     print()
     print("Enemy: ")
-    print(f"{monster['Name']}")
-    print(f"Health: {monster['Health']}")
+    print(f"{Fore.LIGHTYELLOW_EX}{monster['Name']}")
+    print(f"Health: {Fore.LIGHTRED_EX}{monster['Health']}")
     print(chr(0x2550) * 30)
     print()
 
@@ -40,17 +44,17 @@ def after_fight(character, monster):
     print()
 
     character["Experience"] += monster["Experience"]
-    print(f"You gain: {monster['Experience']} Exp from defeating the monster")
+    print(f"You gain: {Fore.LIGHTYELLOW_EX}{monster['Experience']} Exp {Fore.RESET}from defeating the monster")
 
     character["Mana"][0] = min(character["Mana"][0] + 35, character["Mana"][1])
-    print("Your mana replenish by 35")
+    print(f"Your mana replenish by {Fore.LIGHTCYAN_EX}35")
 
     character["Health"][0] = min(character["Health"][0] + 25, character["Health"][1])
-    print("Your health replenish by 25")
+    print(f"Your health replenish by {Fore.GREEN}25")
 
     print()
-    print(f"Health {character['Health'][0]}/{character['Health'][1]}")
-    print(f"Mana: {character['Mana'][0]}/{character['Mana'][1]}")
+    print(f"Health {Fore.LIGHTGREEN_EX}{character['Health'][0]}/{character['Health'][1]}")
+    print(f"Mana: {Fore.LIGHTCYAN_EX}{character['Mana'][0]}/{character['Mana'][1]}")
     print()
     print((chr(0x2550) * 56))
     print()
@@ -62,13 +66,13 @@ def fight(character, monster):
     while character["Health"][0] >= 0 and monster["Health"] > 0:
         fight_introduction(character, monster)
 
-        user_input = input(f"\n{chr(0x2554)}{chr(0x2550) * 27}{chr(0x2557)}\n"
-                           f"{chr(0x2551)}  What do you want to do:  {chr(0x2551)}\n"
-                           f"{chr(0x2551)}                           {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    1 = Normal Attack      {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    2 = Skill Attack       {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    3 = Flee               {chr(0x2551)}\n"
-                           f"{chr(0x255A)}{chr(0x2550) * 27}{chr(0x255D)}\n"
+        user_input = input(f"\n{Fore.WHITE}{chr(0x2554)}{chr(0x2550) * 27}{chr(0x2557)}\n"
+                           f"{Fore.WHITE}{chr(0x2551)}  What do you want to do:  {chr(0x2551)}\n"
+                           f"{Fore.WHITE}{chr(0x2551)}                           {chr(0x2551)}\n"
+                           f"{Fore.WHITE}{chr(0x2551)}    1 = Normal Attack      {chr(0x2551)}\n"
+                           f"{Fore.WHITE}{chr(0x2551)}    2 = Skill Attack       {chr(0x2551)}\n"
+                           f"{Fore.WHITE}{chr(0x2551)}    3 = Flee               {chr(0x2551)}\n"
+                           f"{Fore.WHITE}{chr(0x255A)}{chr(0x2550) * 27}{chr(0x255D)}\n"
                            "Type a number to corresponding action: \n")
 
         if user_input not in user_choices:
@@ -85,7 +89,7 @@ def fight(character, monster):
             if monster["Health"] <= 0:
                 break
             else:
-                print(f"You slashed the monster for {character['Attack']} leaving its Health {monster['Health']}")
+                print(f"You slashed the monster for {Fore.WHITE}{character['Attack']}{Fore.RESET} leaving its Health {Fore.LIGHTRED_EX}{monster['Health']}")
                 print()
                 monster_attack(character, monster)
 
@@ -141,7 +145,8 @@ def fight_with_skill(character, monster):
             print(chr(0x2550) * 60)
             index = 1
             for skill in character["Skill"].values():
-                print(f"{index} Skill: {skill[0]}  Damage: {skill[1]} Mana Cost: {skill[2]}")
+                print(f"{index} {Fore.LIGHTMAGENTA_EX}Skill: {skill[0]}  Damage: {Fore.LIGHTYELLOW_EX}{skill[1]}"
+                      f" Mana Cost: {Fore.LIGHTCYAN_EX}{skill[2]}")
                 index += 1
             print(chr(0x2550) * 60)
             print()
@@ -155,7 +160,7 @@ def fight_with_skill(character, monster):
 
     if character["Mana"][0] < chosen_skill_mana_cost:
 
-        print(f"You need more Mana to cast {chosen_skill_name}")
+        print(f"{Fore.LIGHTRED_EX}You need more Mana to cast {chosen_skill_name}")
         print()
         return
     else:
@@ -166,8 +171,8 @@ def fight_with_skill(character, monster):
     if monster["Health"] <= 0:
         return
     else:
-        print(f"{chosen_skill_name} hit the monster for {chosen_skill_damage} "
-              f"leaving its Health {monster['Health']}")
+        print(f"{Fore.LIGHTCYAN_EX}{chosen_skill_name} hit the monster for {chosen_skill_damage} "
+              f"leaving its Health {Fore.LIGHTRED_EX}{monster['Health']}")
         print()
         monster_attack(character, monster)
         return
