@@ -4,52 +4,58 @@ A01378156
 Richard Li
 A00995183
 """
-
+# Built-in Module
 from random import *
 import character as char
 import random_event
 import battle
 import special_tiles
 
+# Non-Built In Module
 import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 
 
+#         print(f"{chr(0x2551)} ", end="")
 def describe_current_location(row, col, board, character):
-    # listOfValues = list(board.values())[0]
-    # print()
-    # print(listOfValues[0])
-    # print(board) #kani tung mag pakita og taas na coordinate ----------------------------- coords
+    print(f"\n{Back.BLACK}{chr(0x2554)}{chr(0x2550) * 71}{chr(0x2557)}")
     for x in range(row):
-        print(f"{Back.BLACK}{Fore.WHITE} --- "*10)
+
+        # print(f"{Back.BLACK}{Fore.WHITE} --- "*10)
+        print(f"{chr(0x2551)}{Back.BLACK}{Fore.LIGHTWHITE_EX}{"  ---  " * 10} {chr(0x2551)}")
+        print(f"{chr(0x2551)}", end="")
         for y in range(col):
             if x == character["X-coordinate"] and y == character["Y-coordinate"]:
-                board[(x, y)] = (f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|{Fore.RESET} {Fore.LIGHTYELLOW_EX}#{Fore.RESET} "
-                                 f"{Fore.LIGHTWHITE_EX}|{Fore.RESET}")
-                print(board[(x, y)], end="")
+
+                print(f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.RESET}{Fore.LIGHTYELLOW_EX} {chr(0x25A0)} {Fore.RESET}"
+                      f"{Fore.LIGHTWHITE_EX} |{Fore.RESET}", end="")
             else:
-                print(board[(x, y)], end="")
-        print()
-    print(f"{Back.BLACK}{Fore.WHITE} --- " * 10)
+                print(board[(x, y)],end="")
+        print(f"{Back.BLACK}{Fore.LIGHTWHITE_EX} {chr(0x2551)}")
+
+    print(f"{chr(0x2551)}{Back.BLACK}{Fore.WHITE}{"  ---  " * 10} {Fore.LIGHTWHITE_EX}{chr(0x2551)}")
+    print(f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{chr(0x255A)}{chr(0x2550) * 71}{chr(0x255D)}{Back.RESET}\n")
 
 
+# Makes the Board
 def make_board(rows, columns):
     game_board = {}
 
     for x in range(rows):
         for y in range(columns):
             # space = f"|{x},{y}|"
-            space = "|   |"
+            space = "|     |"
+            not_space = "|  .  |"
             if randint(1, 2) == 2:
-                game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{space}{Back.RESET}{Fore.RESET}"
+                game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{not_space}{Back.RESET}{Fore.RESET}"
             else:
                 game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{space}{Back.RESET}{Fore.RESET}"
 
-    game_board[(1, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| 1 |{Back.RESET}{Fore.RESET}"
-    game_board[(1, 8)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| 2 |{Back.RESET}{Fore.RESET}"
-    game_board[(8, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| 3 |{Back.RESET}{Fore.RESET}"
-    game_board[(8, 8)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| 4 |{Back.RESET}{Fore.RESET}"
+    game_board[(1, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|  1  |{Back.RESET}{Fore.RESET}"
+    game_board[(1, 8)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|  2  |{Back.RESET}{Fore.RESET}"
+    game_board[(8, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|  3  |{Back.RESET}{Fore.RESET}"
+    game_board[(8, 8)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|  4  |{Back.RESET}{Fore.RESET}"
 
     game_board["Level"] = 1
 
@@ -59,6 +65,7 @@ def make_board(rows, columns):
     return game_board
 
 
+# Prompts the user for Direction
 def get_user_choice():
     available_choices = {"1": "north", "2": "east", "3": "south", "4": "west"}
     while True:
@@ -78,6 +85,7 @@ def get_user_choice():
             print("Please enter a number that corresponds to a direction")
 
 
+# Validates the move of the user
 def validate_move(rows, columns, character, direction, board):
     directions = {"north": -1, "south": 1, "east": 1, "west": -1}
 
@@ -100,13 +108,15 @@ def validate_move(rows, columns, character, direction, board):
             return True
 
 
+# Will move the character based on the direction
 def move_character(direction, character, board):
     direction_keys = {"north": (0, -1), "east": (1, 0), "south": (0, 1), "west": (-1, 0)}
-    board[(character["X-coordinate"], character["Y-coordinate"])] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|   |"
+
     character["Y-coordinate"] += direction_keys[direction][0]
     character["X-coordinate"] += direction_keys[direction][1]
 
 
+# Checks whether the character is alive
 def is_alive(character):
     if character["Health"][0] <= 0:
         return False
@@ -114,6 +124,7 @@ def is_alive(character):
         return True
 
 
+# Main game
 def simple_game():
     print("\n\n\nHello World, Overwrite this game introduction")
     chosen_character = char.choose_character()
