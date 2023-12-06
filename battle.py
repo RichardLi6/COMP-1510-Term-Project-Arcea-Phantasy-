@@ -12,6 +12,7 @@ from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 
 
+# Function that generates a monster
 def generate_monster():
     beginner_monsters_list = {
         1: {"Name": "Slime", "Health": 60, "Attack": (4, 8), "Experience": 15},
@@ -24,6 +25,7 @@ def generate_monster():
     return monster
 
 
+# Prints the introduction whenever fighting
 def fight_introduction(character, monster):
     print()
     print(chr(0x2550) * 30)
@@ -38,6 +40,7 @@ def fight_introduction(character, monster):
     print()
 
 
+# A Text confirmation after user wins a fight
 def after_fight(character, monster):
     print()
     print((chr(0x2550) * 15) + " You defeated the monster " + (chr(0x2550) * 15))
@@ -47,10 +50,10 @@ def after_fight(character, monster):
     print(f"You gain: {Fore.LIGHTYELLOW_EX}{monster['Experience']} Exp {Fore.RESET}from defeating the monster")
 
     character["Mana"][0] = min(character["Mana"][0] + 35, character["Mana"][1])
-    print(f"Your mana replenish by {Fore.LIGHTCYAN_EX}35")
+    print(f"Your mana replenish by {Fore.LIGHTCYAN_EX}35{Fore.RESET}")
 
     character["Health"][0] = min(character["Health"][0] + 25, character["Health"][1])
-    print(f"Your health replenish by {Fore.GREEN}25")
+    print(f"Your health replenish by {Fore.LIGHTGREEN_EX}25{Fore.RESET}")
 
     print()
     print(f"Health {Fore.LIGHTGREEN_EX}{character['Health'][0]}/{character['Health'][1]}")
@@ -60,6 +63,7 @@ def after_fight(character, monster):
     print()
 
 
+# Function whenenever Character is in a fight
 def fight(character, monster):
     user_choices = ("1", "2", "3")
 
@@ -77,7 +81,6 @@ def fight(character, monster):
 
         if user_input not in user_choices:
             print("Please choose a number from the choices given")
-            print()
             continue
 
         if user_input == "3":
@@ -114,6 +117,7 @@ def fight(character, monster):
         after_fight(character, monster)
 
 
+# Monsters Turn
 def monster_attack(character, monster):
     critical = randint(1, 10)
     critical_range = [1, 3, 7]
@@ -128,30 +132,36 @@ def monster_attack(character, monster):
     return
 
 
-def fight_with_skill(character, monster):
-
+# Prints Users Usable Skills
+def print_user_skills(user):
     index = 1
+    max_skill_name_length = max(len(skill[0]) for skill in user["Skill"].values())
     print(chr(0x2550) * 60)
-    for skill in character["Skill"].values():
-        print(f"{index} Skill: {skill[0]}  Damage: {skill[1]} Mana Cost: {skill[2]}")
+
+    for skill in user["Skill"].values():
+        skill_name = skill[0]
+        damage = skill[1]
+        mana_cost = skill[2]
+
+        # Adjust the padding for the "Damage" value based on the maximum skill name length
+        spacing = max_skill_name_length - len(skill_name) + 1
+
+        print(f" {Fore.LIGHTYELLOW_EX}{index} Skill: {skill_name}{Fore.RESET}"
+              f"{' ' * spacing}Damage: {Fore.LIGHTRED_EX}{damage}{Fore.RESET}"
+              f" \tMana Cost: {Fore.LIGHTCYAN_EX}{mana_cost}")
         index += 1
+
     print(chr(0x2550) * 60)
+
+
+def fight_with_skill(character, monster):
+    print_user_skills(character)
 
     while True:
-        user_choose_skill = int(input("What skill do you want to use :\n"))
+        user_choose_skill = int(input("What skill do you want to use:\n"))
+
         if user_choose_skill not in list(character['Skill'].keys()):
-
-            #Maybe Modularize this
-            print(chr(0x2550) * 60)
-            index = 1
-            for skill in character["Skill"].values():
-                print(f"{index} = Skill: {Fore.LIGHTMAGENTA_EX}{skill[0]}", end="")
-                print(f"Damage: {Fore.LIGHTYELLOW_EX}{skill[1]}", end="")
-                print(f" Mana Cost: {Fore.LIGHTCYAN_EX}{skill[2]}", end="")
-                index += 1
-            print(chr(0x2550) * 60)
-            print()
-
+            print_user_skills(character)
         else:
             break
 
@@ -160,7 +170,6 @@ def fight_with_skill(character, monster):
     chosen_skill_mana_cost = character["Skill"][user_choose_skill][2]
 
     if character["Mana"][0] < chosen_skill_mana_cost:
-
         print(f"{Fore.LIGHTRED_EX}You need more Mana to cast {chosen_skill_name}")
         print()
         return
