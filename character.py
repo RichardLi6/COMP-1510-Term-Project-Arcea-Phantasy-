@@ -9,7 +9,72 @@ from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 
 
-# 24 25 27 + 3
+# Initialize Character from User Prompt
+def make_character(character):
+    character_stats = {
+        "Warrior": {
+            "Class": "Warrior",
+            "Health": [30, 30],
+            "Attack": 6,
+            "Mana": [50, 50],
+            "X-coordinate": 0,
+            "Y-coordinate": 0,
+            "Experience": 0,
+            "Inventory": [],
+            "Weapon": {},
+            "Armor": {},
+            "Level": 1,
+            "Dodge": 10,
+            "Goal": [],
+            "Skill": {
+                1: ("Double Slash", 10, 10),
+                2: ("Vertical Slash", 15, 20)
+            }
+        },
+        "Ranger": {
+            "Class": "Ranger",
+            "Health": [25, 25],
+            "Attack": 5,
+            "Mana": [60, 60],
+            "X-coordinate": 0,
+            "Y-coordinate": 0,
+            "Experience": 0,
+            "Inventory": [],
+            "Weapon": {},
+            "Armor": {},
+            "Level": 1,
+            "Dodge": 10,
+            "Goal": [],
+            "Skill": {
+                1: ("Arrow Shot", 10, 10),
+                2: ("Quick Slash", 15, 20)
+            }
+        },
+        "Mage": {
+            "Class": "Mage",
+            "Health": [20, 20],
+            "Attack": 8,
+            "Mana": [80, 80],
+            "X-coordinate": 0,
+            "Y-coordinate": 0,
+            "Experience": 0,
+            "Inventory": [],
+            "Weapon": {},
+            "Armor": {},
+            "Level": 1,
+            "Dodge": 10,
+            "Goal": [],
+            "Skill": {
+                1: ("Fireball", 10, 10),
+                2: ("Earth Fissure", 15, 20)
+            }
+        }
+    }
+
+    return character_stats[character]
+
+
+# Prompt User for Choice of Class
 def choose_character():
     valid_answers = {"1": "Warrior", "2": "Ranger", "3": "Mage"}
     while True:
@@ -28,22 +93,7 @@ def choose_character():
             return valid_answers[user_class]
 
 
-def make_character(character):
-    character_stats = {
-        "Warrior": {"Health": [30, 30], "Attack": 6, "Mana": [50, 50], "X-coordinate": 0, "Y-coordinate": 0,
-                    "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1, "Dodge": 10, "Goal": [],
-                    "Skill": {1: ("Double Slash", 10, 10), 2: ("Vertical Slash", 15, 20)}},
-        "Ranger": {"Health": [25, 25], "Attack": 5, "Mana": [60, 60], "X-coordinate": 0, "Y-coordinate": 0,
-                   "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1, "Dodge": 10, "Goal": [],
-                   "Skill": {1: ("Arrow Shot", 10, 10), 2: ("Quick Slash", 15, 20)}},
-        "Mage": {"Health": [20, 20], "Attack": 8, "Mana": [80, 80], "X-coordinate": 0, "Y-coordinate": 0,
-                 "Experience": 0, "Inventory": [], "Weapon": {}, "Armor": {}, "Level": 1, "Dodge": 10, "Goal": [],
-                 "Skill": {1: ("Fireball", 10, 10), 2: ("Earth Fissure", 15, 20)}}
-    }
-
-    return character_stats[character]
-
-
+# Leveling Up System
 def level_up(character, chosen_character):
     level_requirements = {1: 50, 2: 65, 3: 90, 4: 110, 5: 135}
     stat_increases = {
