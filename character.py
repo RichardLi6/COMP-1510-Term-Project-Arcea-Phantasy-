@@ -14,9 +14,9 @@ def make_character(character):
     character_stats = {
         "Warrior": {
             "Class": "Warrior",
-            "Health": [30, 30],
+            "Health": [50, 50],
             "Attack": 6,
-            "Mana": [50, 50],
+            "Mana": [60, 60],
             "X-coordinate": 0,
             "Y-coordinate": 0,
             "Experience": 0,
@@ -33,7 +33,7 @@ def make_character(character):
         },
         "Ranger": {
             "Class": "Ranger",
-            "Health": [25, 25],
+            "Health": [50, 50],
             "Attack": 5,
             "Mana": [60, 60],
             "X-coordinate": 0,
@@ -52,7 +52,7 @@ def make_character(character):
         },
         "Mage": {
             "Class": "Mage",
-            "Health": [20, 20],
+            "Health": [40, 40],
             "Attack": 8,
             "Mana": [80, 80],
             "X-coordinate": 0,
@@ -66,7 +66,7 @@ def make_character(character):
             "Goal": [],
             "Skill": {
                 1: ("Fireball", 10, 10),
-                2: ("Earth Fissure", 15, 20)
+                2: ("Earth Fissure", 20, 20)
             }
         }
     }
@@ -95,20 +95,23 @@ def choose_character():
 
 # Leveling Up System
 def level_up(character, chosen_character):
-    level_requirements = {1: 50, 2: 65, 3: 90, 4: 110, 5: 135}
+    level_requirements = {1: 40, 2: 70, 3: 90, 4: 110, 5: 135}
+    character_class = character["Class"]
     stat_increases = {
-        "Warrior": {"Health": 15, "Attack": 6},
-        "Ranger": {"Health": 12, "Attack": 5},
-        "Mage": {"Health": 10, "Attack": 8}
+        "Warrior": {"Health": 15, "Attack": 6, "Mana": 20},
+        "Ranger": {"Health": 12, "Attack": 5, "Mana": 25},
+        "Mage": {"Health": 10, "Attack": 8, "Mana": 30}
     }
     current_level = character["Level"]
     if current_level in level_requirements and character["Experience"] >= level_requirements[current_level]:
+        print(f"{Fore.LIGHTYELLOW_EX}You have Level Up! ")
         character["Level"] += 1
         character["Experience"] -= level_requirements[current_level]
 
         if chosen_character in stat_increases:
-            for stat, value in stat_increases[chosen_character].items():
-                character[stat] += value
+            character["Health"][1] += stat_increases[character_class]["Health"]
+            character["Mana"][1] += stat_increases[character_class]["Mana"]
+            character["Attack"] += stat_increases[character_class]["Attack"]
 
             # Special case for Ranger at level 6, get extra Dodge
             if chosen_character == "Ranger" and current_level == 5:
