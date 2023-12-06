@@ -22,15 +22,16 @@ def describe_current_location(row, col, board, character):
     # print(listOfValues[0])
     # print(board) #kani tung mag pakita og taas na coordinate ----------------------------- coords
     for x in range(row):
-        print(" --- "*10)
+        print(f"{Back.BLACK}{Fore.WHITE} --- "*10)
         for y in range(col):
             if x == character["X-coordinate"] and y == character["Y-coordinate"]:
-                board[(x, y)] = f"| {Fore.LIGHTYELLOW_EX}#{Fore.RESET} |"
+                board[(x, y)] = (f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|{Fore.RESET} {Fore.LIGHTYELLOW_EX}#{Fore.RESET} "
+                                 f"{Fore.LIGHTWHITE_EX}|{Fore.RESET}")
                 print(board[(x, y)], end="")
             else:
                 print(board[(x, y)], end="")
         print()
-    print(" --- " * 10)
+    print(f"{Back.BLACK}{Fore.WHITE} --- " * 10)
 
 
 def make_board(rows, columns):
@@ -41,14 +42,14 @@ def make_board(rows, columns):
             # space = f"|{x},{y}|"
             space = "|   |"
             if randint(1, 2) == 2:
-                game_board[(x, y)] = "|   |"
+                game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{space}{Back.RESET}{Fore.RESET}"
             else:
-                game_board[(x, y)] = f"{space}"
+                game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{space}{Back.RESET}{Fore.RESET}"
 
-    game_board[(1, 1)] = f"| 1 |"
-    game_board[(1, 8)] = f"| 2 |"
-    game_board[(8, 1)] = f"| 3 |"
-    game_board[(8, 8)] = f"| 4 |"
+    game_board[(1, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| 1 |{Back.RESET}{Fore.RESET}"
+    game_board[(1, 8)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| 2 |{Back.RESET}{Fore.RESET}"
+    game_board[(8, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| 3 |{Back.RESET}{Fore.RESET}"
+    game_board[(8, 8)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| 4 |{Back.RESET}{Fore.RESET}"
 
     game_board["Level"] = 1
 
@@ -101,7 +102,7 @@ def validate_move(rows, columns, character, direction, board):
 
 def move_character(direction, character, board):
     direction_keys = {"north": (0, -1), "east": (1, 0), "south": (0, 1), "west": (-1, 0)}
-    board[(character["X-coordinate"], character["Y-coordinate"])] = "|   |"
+    board[(character["X-coordinate"], character["Y-coordinate"])] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|   |"
     character["Y-coordinate"] += direction_keys[direction][0]
     character["X-coordinate"] += direction_keys[direction][1]
 
@@ -138,6 +139,7 @@ def simple_game():
                 print("Sheesh")
 
             else:
+                describe_current_location(rows, cols, board, character)
                 print("This is the else block")
             char.level_up(character, chosen_character)
 
