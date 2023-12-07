@@ -6,33 +6,42 @@ A00995183
 """
 import battle
 
+# Non Built In Modules
+import colorama
+from colorama import Fore
+colorama.init(autoreset=True)
 
+
+# Checks if Current Boss is Alive to prevent Exp farming abuse
 def check_if_boss_is_alive(character, boss):
-    if 1 in character["Goal"]:
-        print(f"You already defeated {boss} ")
+    if 1 in character["Goal"] and character["X-coordinate"] == 1 and character["Y-coordinate"] == 1:
+        print(f"{Fore.LIGHTYELLOW_EX}You already defeated {Fore.LIGHTBLUE_EX}{boss['Name']} ")
         return False
 
-    if 2 in character["Goal"]:
-        print(f"You already defeated {boss} ")
+    if 2 in character["Goal"] and character["X-coordinate"] == 1 and character["Y-coordinate"] == 8:
+        print(f"{Fore.LIGHTYELLOW_EX}You already defeated {boss['Name']} ")
         return False
 
-    if 3 in character["Goal"]:
-        print(f"You already defeated {boss} ")
+    if 3 in character["Goal"] and character["X-coordinate"] == 8 and character["Y-coordinate"] == 1:
+        print(f"{Fore.LIGHTYELLOW_EX}You already defeated {Fore.LIGHTCYAN_EX}{boss['Name']} ")
         return False
 
-    if 4 in character["Goal"]:
-        print(f"You already defeated {boss} ")
+    if 4 in character["Goal"] and character["X-coordinate"] == 8 and character["Y-coordinate"] == 8:
+        print(f"{Fore.LIGHTYELLOW_EX}You already defeated {Fore.LIGHTMAGENTA_EX}{boss['Name']} ")
         return False
 
     return True
 
 
+# Initiates Fight with the Boss
 def fight_the_boss(character, boss):
     battle.fight(character, boss)
 
     if boss['Health'] <= 0:
-        character["Goals"].append(1)
-        print("You defeated one of the 4 pillars")
+        character["Goal"].append(boss["ID"])
+        print(f"You defeated {Fore.LIGHTYELLOW_EX}{boss['Name']}")
+        print("You defeated one of the 4 Pillars")
+        print(character["Goal"])
 
     elif boss['Health'] >= 0 and character['Health'][0] > 0:
         print("You successfully run from the Pillar Boss")
@@ -41,6 +50,7 @@ def fight_the_boss(character, boss):
         print("You died try, again next time")
 
 
+# Checks if you are in a semi boss stage
 def in_special_coordinates(character, board):
     if character["X-coordinate"] == 1 and character["Y-coordinate"] == 1 and board["Level"] == 1:
         return True
@@ -53,6 +63,7 @@ def in_special_coordinates(character, board):
     return False
 
 
+# Determines Which semi Boss Coordinate You are on
 def which_boss(character):
     if character["X-coordinate"] == 1 and character["Y-coordinate"] == 1:
         return 1
@@ -64,27 +75,29 @@ def which_boss(character):
         return 4
 
 
+# Function for Semi Boss before Final Boss
 def semi_boss_stage(character, board):
     if in_special_coordinates(character, board):
         if board["Level"] == 1:
             level_1_bosses = {
-                1: {"Name": "North Pillar: Black Tortoise", "Health": 700, "Attack": (10, 20), "Dodge": 0,
-                    "Experience": 300},
-                2: {"Name": "East Pillar: Azure Dragon", "Health": 550, "Attack": (17, 34), "Dodge": 10,
-                    "Experience": 300},
-                3: {"Name": "West Pillar: White Tiger", "Health": 400, "Attack": (18, 36), "Dodge": 20,
-                    "Experience": 300},
-                4: {"Name": "South Pillar: Vermilion Bird", "Health": 500, "Attack": (20, 42), "Dodge": 10,
-                    "Experience": 350}
+                1: {"Name": "North Pillar: Black Tortoise", "Health": 500, "Attack": (10, 21), "Dodge": 0,
+                    "Experience": 300, "ID": 1},
+                2: {"Name": "East Pillar: Azure Dragon", "Health": 550, "Attack": (13, 27), "Dodge": 10,
+                    "Experience": 300, "ID": 2},
+                3: {"Name": "West Pillar: White Tiger", "Health": 600, "Attack": (18, 38), "Dodge": 10,
+                    "Experience": 300, "ID": 3},
+                4: {"Name": "South Pillar: Vermilion Bird", "Health": 700, "Attack": (20, 46), "Dodge": 20,
+                    "Experience": 300, "ID": 4},
+
             }
-            print("You have reached one of the four pillars of this stage")
 
             boss = which_boss(character)
 
             if not check_if_boss_is_alive(character, level_1_bosses[boss]):
-                return
+                print(f"Prepare and Find the Other Pillars")
 
             else:
+                print("You have reached one of the four pillars of this stage")
                 fight_the_boss(character, level_1_bosses[boss])
 
     else:
