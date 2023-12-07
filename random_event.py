@@ -5,7 +5,7 @@ Richard Li
 A00995183
 """
 from random import randint
-from special_tiles import in_special_coordinates
+from goals import in_special_coordinates
 
 import colorama
 from colorama import Fore, Back, Style
