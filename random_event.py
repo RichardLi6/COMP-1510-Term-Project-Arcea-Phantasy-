@@ -17,9 +17,10 @@ def random_encounter(monster, character, board):
     if in_special_coordinates(character, board):
         return False
 
-    random_number = randint(1, 4)
+    random_number = randint(1, 10)
 
-    if random_number == 3 or random_number == 2:
+    encounter_chance = (1, 3, 9, 7,)
+    if random_number in encounter_chance:
         return fight_or_flee(monster)
     else:
         return False
