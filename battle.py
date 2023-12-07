@@ -12,9 +12,10 @@ from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 
 
+# Heal option for User
 def heal_character(character):
-    heal_scaling = {1: 9, 2: 13, 3: 15, 4: 18, 5: 20, 6: 24}
-    mana_scaling = {1: 12, 2: 16, 3: 20, 4: 24, 5: 28, 6: 35}
+    heal_scaling = {1: 11, 2: 15, 3: 17, 4: 20, 5: 23, 6: 28}
+    mana_scaling = {1: 13, 2: 17, 3: 21, 4: 25, 5: 28, 6: 35}
 
     character_level = character["Level"]
     health_generated = heal_scaling[character_level]
@@ -30,9 +31,9 @@ def heal_character(character):
 # Function that generates a monster
 def generate_monster():
     beginner_monsters_list = {
-        1: {"Name": "Slime", "Health": 60, "Attack": (4, 8), "Experience": 15},
-        2: {"Name": "Undead", "Health": 80, "Attack": (3, 5), "Experience": 15},
-        3: {"Name": "Imp", "Health": 45, "Attack": (5, 10), "Experience": 15}
+        1: {"Name": "Slime", "Health": 60, "Attack": (7, 10), "Experience": 15},
+        2: {"Name": "Undead", "Health": 80, "Attack": (5, 7), "Experience": 15},
+        3: {"Name": "Imp", "Health": 50, "Attack": (9, 15), "Experience": 20}
     }
 
     random_number = randint(1, 3)
