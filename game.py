@@ -21,7 +21,7 @@ def describe_current_location(row, col, board, character):
     print(f"\n{Back.BLACK}{chr(0x2554)}{chr(0x2550) * 71}{chr(0x2557)}")
 
     for x in range(row):
-        print(f"{chr(0x2551)}{Back.BLACK}{Fore.LIGHTWHITE_EX}{"  ---  " * 10} {chr(0x2551)}")
+        print(f"{chr(0x2551)}{Back.BLACK}{Fore.LIGHTWHITE_EX}{'  ---  ' * 10} {chr(0x2551)}")
         print(f"{chr(0x2551)}", end="")
 
         for y in range(col):
@@ -35,12 +35,22 @@ def describe_current_location(row, col, board, character):
 
         print(f"{Back.BLACK}{Fore.LIGHTWHITE_EX} {chr(0x2551)}")
 
-    print(f"{chr(0x2551)}{Back.BLACK}{Fore.WHITE}{"  ---  " * 10} {Fore.LIGHTWHITE_EX}{chr(0x2551)}")
+    print(f"{chr(0x2551)}{Back.BLACK}{Fore.WHITE}{'  ---  ' * 10} {Fore.LIGHTWHITE_EX}{chr(0x2551)}")
     print(f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{chr(0x255A)}{chr(0x2550) * 71}{chr(0x255D)}{Back.RESET}\n")
 
 
 # Makes the Board
 def make_board(rows, columns):
+    """
+    Creates a dictionary representing the ASCII art game board.
+
+    :param rows: an integer representing the number of rows in the board
+    :param columns: an integer representing the number of columns of the board
+    :precondition: rows must be greater than or equal to 2
+    :precondition: columns must be greater or equal to than 2
+    :postcondition: creates a dictionary representing an ASCII art game board with dimensions rows x columns
+    :return: the ASCII map of the game board
+    """
     game_board = {}
 
     for x in range(rows):
@@ -76,11 +86,11 @@ def get_user_choice():
     while True:
         user_choice = input(f"\n{chr(0x2554)}{chr(0x2550) * 45}{chr(0x2557)}\n"
                             f"{chr(0x2551)}   Pick a number representing the direction  {chr(0x2551)}\n"
-                            f"{chr(0x2551)}{" " * 45}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}{Fore.LIGHTBLUE_EX}    1 = North  {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}{Fore.LIGHTYELLOW_EX}    2 = East   {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}{Fore.LIGHTCYAN_EX}    3 = West   {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}{Fore.LIGHTMAGENTA_EX}    4 = South  {" " * 30}{Fore.RESET}{chr(0x2551)}\n" 
+                            f"{chr(0x2551)}{' ' * 45}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}{Fore.LIGHTBLUE_EX}    1 = North  {' ' * 30}{Fore.RESET}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}{Fore.LIGHTYELLOW_EX}    2 = East   {' ' * 30}{Fore.RESET}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}{Fore.LIGHTCYAN_EX}    3 = West   {' ' * 30}{Fore.RESET}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}{Fore.LIGHTMAGENTA_EX}    4 = South  {' ' * 30}{Fore.RESET}{chr(0x2551)}\n" 
                             f"{chr(0x255A)}{chr(0x2550) * 45}{chr(0x255D)}\n"
                             "Type number of corresponding action: \n").strip()
 
