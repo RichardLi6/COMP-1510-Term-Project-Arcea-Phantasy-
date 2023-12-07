@@ -145,13 +145,14 @@ def monster_attack(character, monster):
     critical = randint(1, 10)
     critical_range = [1, 3, 7]
     if critical not in critical_range:
-        character["Health"][0] -= monster["Attack"][0]
         print(f"The monster attack you for {monster['Attack'][0]} leaving you with {character['Health'][0]} health \n")
+        character["Health"][0] -= monster["Attack"][0]
 
     else:
-        character["Health"][0] -= monster["Attack"][1]
         print("The monster caught hit you in a vulnerable spot!")
         print(f"The monster attack you for {monster['Attack'][1]} leaving you with {character['Health'][0]} health \n")
+        character["Health"][0] -= monster["Attack"][1]
+
     return
 
 
