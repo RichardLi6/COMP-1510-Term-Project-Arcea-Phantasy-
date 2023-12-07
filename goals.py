@@ -64,7 +64,7 @@ def which_boss(character):
         return 4
 
 
-def achieved_goal(character, board):
+def semi_boss_stage(character, board):
     if in_special_coordinates(character, board):
         if board["Level"] == 1:
             level_1_bosses = {

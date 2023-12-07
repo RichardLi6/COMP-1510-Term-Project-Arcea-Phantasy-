@@ -155,7 +155,7 @@ def simple_game():
         if valid_move:
             move_character(direction, character, board)
             describe_current_location(rows, cols, board, character)
-            goals.achieved_goal(character, board)
+            goals.semi_boss_stage(character, board)
             monster = battle.generate_monster()
             you_encountered_a_foe = random_event.random_encounter(monster, character, board)
 
