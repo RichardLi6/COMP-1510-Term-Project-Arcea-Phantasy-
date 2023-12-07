@@ -71,7 +71,7 @@ def make_board(rows, columns):
 # Prompts the user for Direction
 def get_user_choice():
 
-    available_choices = {"1": "north", "2": "east", "3": "south", "4": "west"}
+    available_choices = {"1": "north", "2": "east", "3": "west", "4": "south"}
 
     while True:
         user_choice = input(f"\n{chr(0x2554)}{chr(0x2550) * 45}{chr(0x2557)}\n"
@@ -79,8 +79,8 @@ def get_user_choice():
                             f"{chr(0x2551)}{" " * 45}{chr(0x2551)}\n"
                             f"{chr(0x2551)}{Fore.LIGHTBLUE_EX}    1 = North  {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
                             f"{chr(0x2551)}{Fore.LIGHTYELLOW_EX}    2 = East   {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}{Fore.LIGHTMAGENTA_EX}    3 = South  {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}{Fore.LIGHTCYAN_EX}    4 = West   {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}{Fore.LIGHTCYAN_EX}    3 = West   {" " * 30}{Fore.RESET}{chr(0x2551)}\n"
+                            f"{chr(0x2551)}{Fore.LIGHTMAGENTA_EX}    4 = South  {" " * 30}{Fore.RESET}{chr(0x2551)}\n" 
                             f"{chr(0x255A)}{chr(0x2550) * 45}{chr(0x255D)}\n"
                             "Type number of corresponding action: \n").strip()
 
