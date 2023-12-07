@@ -95,7 +95,7 @@ def choose_character():
 
 # Leveling Up System
 def level_up(character, chosen_character):
-    level_requirements = {1: 40, 2: 70, 3: 90, 4: 110, 5: 135}
+    level_requirements = {1: 40, 2: 70, 3: 90, 4: 130, 5: 155, 6: 180}
     character_class = character["Class"]
     stat_increases = {
         "Warrior": {"Health": 15, "Attack": 6, "Mana": 20},
