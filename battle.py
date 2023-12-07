@@ -12,6 +12,21 @@ from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 
 
+def heal_character(character):
+    heal_scaling = {1: 9, 2: 13, 3: 15, 4: 18, 5: 20, 6: 24}
+    mana_scaling = {1: 12, 2: 16, 3: 20, 4: 24, 5: 28, 6: 35}
+
+    character_level = character["Level"]
+    health_generated = heal_scaling[character_level]
+    mana_generated = mana_scaling[character_level]
+
+    print("You took a quick sidestep to regenerate yourself")
+    print(f"You regenerated {Fore.LIGHTGREEN_EX}{health_generated} Health")
+    print(f"You regenerated {Fore.LIGHTCYAN_EX}{mana_generated} Mana")
+    character["Health"][0] = min(character["Health"][0] + health_generated, character["Health"][1])
+    character["Mana"][0] = min(character["Mana"][0] + mana_generated, character["Mana"][1])
+
+
 # Function that generates a monster
 def generate_monster():
     beginner_monsters_list = {
@@ -63,9 +78,9 @@ def after_fight(character, monster):
     print()
 
 
-# Function whenenever Character is in a fight
+# Function whenever Character is in a fight
 def fight(character, monster):
-    user_choices = ("1", "2", "3")
+    user_choices = ("1", "2", "3", "4")
 
     while character["Health"][0] >= 0 and monster["Health"] > 0:
         fight_introduction(character, monster)
@@ -74,8 +89,9 @@ def fight(character, monster):
                            f"{chr(0x2551)}  What do you want to do:  {chr(0x2551)}\n"
                            f"{chr(0x2551)}                           {chr(0x2551)}\n"
                            f"{chr(0x2551)}    1 = Normal Attack      {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    2 = Skill Attack       {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    3 = Flee               {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    {Fore.LIGHTMAGENTA_EX}2 = Skill Attack{Fore.RESET}       {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    {Fore.LIGHTGREEN_EX}3 = Heal{Fore.RESET}               {chr(0x2551)}\n"
+                           f"{chr(0x2551)}    {Fore.LIGHTYELLOW_EX}4 = Flee{Fore.RESET}               {chr(0x2551)}\n"
                            f"{chr(0x255A)}{chr(0x2550) * 27}{chr(0x255D)}\n"
                            "Type a number to corresponding action: \n")
 
@@ -83,7 +99,7 @@ def fight(character, monster):
             print("Please choose a number from the choices given")
             continue
 
-        if user_input == "3":
+        if user_input == "4":
             print(f"You successfully Flee you coward")
             return
 
@@ -92,12 +108,18 @@ def fight(character, monster):
             if monster["Health"] <= 0:
                 break
             else:
-                print(f"You slashed the monster for {Fore.WHITE}{character['Attack']}{Fore.RESET} leaving its Health {Fore.LIGHTRED_EX}{monster['Health']}")
+                print(f"You slashed the monster for {Fore.WHITE}{character['Attack']}{Fore.RESET} leaving its Health "
+                      f"{Fore.LIGHTRED_EX}{monster['Health']}")
                 print()
                 monster_attack(character, monster)
 
+        elif user_input == "3":
+            heal_character(character)
+            monster_attack(character, monster)
+
         else:
             fight_with_skill(character, monster)
+            monster_attack(character, monster)
 
         if is_alive(character):
 
@@ -146,7 +168,7 @@ def print_user_skills(user):
         # Adjust the padding for the "Damage" value based on the maximum skill name length
         spacing = max_skill_name_length - len(skill_name) + 1
 
-        print(f" {Fore.LIGHTYELLOW_EX}{index} Skill: {skill_name}{Fore.RESET}"
+        print(f" {Fore.LIGHTYELLOW_EX}{index}{Fore.RESET} Skill: {Fore.LIGHTMAGENTA_EX}{skill_name}{Fore.RESET}"
               f"{' ' * spacing}Damage: {Fore.LIGHTRED_EX}{damage}{Fore.RESET}"
               f" \tMana Cost: {Fore.LIGHTCYAN_EX}{mana_cost}")
         index += 1
@@ -175,7 +197,7 @@ def fight_with_skill(character, monster):
         return
     else:
         character["Mana"][0] -= chosen_skill_mana_cost
-        print(f"You started casting {Fore.LIGHTCYAN_EX}{chosen_skill_name}")
+        print(f"You started casting {Fore.LIGHTMAGENTA_EX}{chosen_skill_name}")
         monster["Health"] -= chosen_skill_damage
 
     if monster["Health"] <= 0:
@@ -184,7 +206,6 @@ def fight_with_skill(character, monster):
         print(f"{Fore.LIGHTCYAN_EX}{chosen_skill_name} hit the monster for {chosen_skill_damage} "
               f"leaving its Health {Fore.LIGHTRED_EX}{monster['Health']}")
         print()
-        monster_attack(character, monster)
         return
 
 
