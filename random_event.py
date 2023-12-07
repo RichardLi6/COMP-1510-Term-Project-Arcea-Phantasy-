@@ -13,6 +13,17 @@ colorama.init(autoreset=True)
 
 
 def random_encounter(monster, character, board):
+    """
+    Encounter a random monster by chance
+
+    :param monster: a dictionary containing a dictionary of different types of monsters and stats
+    :param character: a dictionary of chosen character's stats
+    :param board: a dictionary representing the ASCII art game board
+    :precondition: character moves in a direction
+    :postcondition: Checks for a random encounter with a monster on the game board.
+    :postcondition: If a random encounter happens, player is prompt to fight or flee
+    :return: True if there is a random encounter, False if there is not
+    """
 
     if in_special_coordinates(character, board):
         return False
@@ -27,6 +38,15 @@ def random_encounter(monster, character, board):
 
 
 def fight_or_flee(monster):
+    """
+
+    Prompt user to choose to fight or flee from a monster encounter.
+
+    :param monster: a dictionary containing a dictionary of different types of monsters and stats
+    :precondition: the user encounters a monster
+    :postcondition: consistently prompts user to input '1' or '2'
+    :return: True if user decides to fight, False if user attempts to flee
+    """
     while True:
         user_input = input(f"\nYou encountered a wild {Fore.LIGHTYELLOW_EX}{monster['Name']}!{Fore.RESET}\n"
                            f"\n{chr(0x2554)}{chr(0x2550) * 29}{chr(0x2557)}\n"
