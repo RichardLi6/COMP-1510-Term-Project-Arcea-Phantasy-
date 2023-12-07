@@ -11,6 +11,16 @@ colorama.init(autoreset=True)
 
 # Initialize Character from User Prompt
 def make_character(character):
+    """
+    Creates a game character.
+
+    Game character contains stats and attributes listed in function.
+
+    :param character: a string containing character information
+    :precondition: character must be one of the keys of the dictionary
+    :postcondition: creates dictionary containing the stats of the game character.
+    :return: returns the dictionary of character stats
+    """
     character_stats = {
         "Warrior": {
             "Class": "Warrior",
@@ -77,10 +87,10 @@ def choose_character():
     valid_answers = {"1": "Warrior", "2": "Ranger", "3": "Mage"}
     while True:
         user_class = input(f"{chr(0x2554)}{chr(0x2550) * 40}{chr(0x2557)}\n"
-                           f"{chr(0x2551)}{" " * 12}  Pick a Class: {" " * 12}{chr(0x2551)}\n"
-                           f"{chr(0x2551)}{Fore.LIGHTYELLOW_EX}   1 = Warrior {" " * 25}{Fore.RESET}{chr(0x2551)}\n"
-                           f"{chr(0x2551)}{Fore.LIGHTGREEN_EX}   2 = Ranger {" " * 26}{Fore.RESET}{chr(0x2551)}\n"
-                           f"{chr(0x2551)}{Fore.LIGHTMAGENTA_EX}   3 = Mage {" " * 28}{Fore.RESET}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}{' ' * 12}  Pick a Class: {' ' * 12}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}{Fore.LIGHTYELLOW_EX}   1 = Warrior {' ' * 25}{Fore.RESET}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}{Fore.LIGHTGREEN_EX}   2 = Ranger {' ' * 26}{Fore.RESET}{chr(0x2551)}\n"
+                           f"{chr(0x2551)}{Fore.LIGHTMAGENTA_EX}   3 = Mage {' ' * 28}{Fore.RESET}{chr(0x2551)}\n"
                            f"{chr(0x255A)}{chr(0x2550) * 40}{chr(0x255D)}\n"
                            "Type number of Chosen Class: \n")
 
@@ -93,6 +103,15 @@ def choose_character():
 
 # Increased Stats for Level Up
 def increased_stats(character, character_class):
+    """
+    Increase character stats upon level up.
+
+    :param character: the dictionary of character stats
+    :param character_class: user input of chosen character
+    :precondition: user must have chosen a character
+    :precondition: character must have enough experience to level up
+    :postcondition: character stats increase upon level up
+    """
     stat_increases = {
         "Warrior": {"Health": 25, "Attack": 7, "Mana": 20},
         "Ranger": {"Health": 20, "Attack": 5, "Mana": 25},
@@ -142,6 +161,15 @@ def new_skills(character, character_class):
 
 # Leveling Up System
 def level_up(character, chosen_character):
+    """
+    Increase character stats upon level up.
+
+    :param character: the dictionary of character stats
+    :param chosen_character: user input of chosen character
+    :precondition: user must have chosen a character
+    :precondition: character must have enough experience to level up
+    :postcondition: character stats increase upon level up
+    """
     level_requirements = {1: 40, 2: 70, 3: 90, 4: 130, 5: 155, 6: 180}
 
     character_class = chosen_character
