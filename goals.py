@@ -103,6 +103,13 @@ def semi_boss_stage(character, board):
         return
 
 
+def check_if_ready_for_final_boss(character):
+    if sorted([1, 2, 3, 4]) == sorted(character["Goal"]):
+        print(f"{Fore.LIGHTYELLOW_EX}A Voice whispers above the clouds")
+        print(f"{Fore.LIGHTYELLOW_EX}You are ready to face the final boss and return to Earth")
+        print(f"You will see him in the {Fore.LIGHTGREEN_EX}middle of Terra")
+
+
 def main():
     pass
 
