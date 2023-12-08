@@ -5,6 +5,7 @@ Richard Li
 A00995183
 """
 import battle
+import game
 
 # Non Built In Modules
 import colorama
@@ -108,6 +109,63 @@ def check_if_ready_for_final_boss(character):
         print(f"{Fore.LIGHTYELLOW_EX}A Voice whispers above the clouds")
         print(f"{Fore.LIGHTYELLOW_EX}You are ready to face the final boss and return to Earth")
         print(f"You will see him in the {Fore.LIGHTGREEN_EX}middle of Terra")
+
+
+def fight_final_boss(character):
+    boss = {
+        "Name": "Demon Lord", "Health": 1000, "Attack": (45, 90),
+        "Skills": ("Battle Cry", "Brace", "Inferno Blasy")
+               }
+    user_choices = ("1", "2", "3", "4")
+
+    while character["Health"][0] >= 0 and boss["Health"] > 0:
+
+        user_input = battle.user_prompt()
+
+        if user_input not in user_choices:
+            print("Please choose a number from the choices given")
+            continue
+
+        if user_input == "4":
+
+            if battle.try_to_flee_successfully(character):
+                return
+
+            else:
+                continue
+
+        elif user_input == "1":
+            boss["Health"] -= character["Attack"]
+
+            if boss["Health"] <= 0:
+                break
+
+            else:
+                battle.normal_attack_description(character)
+                battle.monster_attack(character, boss)
+
+        elif user_input == "3":
+            print("The monster was a tad bit faster than you ")
+            battle.monster_attack(character, boss)
+            battle.heal_character(character)
+
+        else:
+            battle.fight_with_skill(character, boss)
+            battle.monster_attack(character, boss)
+
+        if game.is_alive(character):
+            battle.passive_regeneration(character)
+
+        else:
+            break
+
+    if not game.is_alive(character):
+        print("You died Lmao")
+        return
+
+    else:
+        print("You Defeated the Last Boss ")
+        print("Suddenly you wake up noticing you still have Exams coming for 1510")
 
 
 def main():
