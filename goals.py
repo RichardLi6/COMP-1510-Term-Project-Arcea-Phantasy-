@@ -18,7 +18,7 @@ def check_if_boss_is_alive(character, boss):
         print(f"{Fore.LIGHTYELLOW_EX}You already defeated {Fore.LIGHTBLUE_EX}{boss['Name']} ")
         return False
 
-    if 2 in character["Goal"] and character["X-coordinate"] == 1 and character["Y-coordinate"] == 8:
+    if 2 in character["Goal"] and character["X-coordinate"] == 1 and character["Y-coordinate"] == 23:
         print(f"{Fore.LIGHTYELLOW_EX}You already defeated {boss['Name']} ")
         return False
 
@@ -26,7 +26,7 @@ def check_if_boss_is_alive(character, boss):
         print(f"{Fore.LIGHTYELLOW_EX}You already defeated {Fore.LIGHTCYAN_EX}{boss['Name']} ")
         return False
 
-    if 4 in character["Goal"] and character["X-coordinate"] == 8 and character["Y-coordinate"] == 8:
+    if 4 in character["Goal"] and character["X-coordinate"] == 8 and character["Y-coordinate"] == 23:
         print(f"{Fore.LIGHTYELLOW_EX}You already defeated {Fore.LIGHTMAGENTA_EX}{boss['Name']} ")
         return False
 
@@ -54,11 +54,11 @@ def fight_the_boss(character, boss):
 def in_special_coordinates(character, board):
     if character["X-coordinate"] == 1 and character["Y-coordinate"] == 1 and board["Level"] == 1:
         return True
-    if character["X-coordinate"] == 1 and character["Y-coordinate"] == 8 and board["Level"] == 1:
+    if character["X-coordinate"] == 1 and character["Y-coordinate"] == 23 and board["Level"] == 1:
         return True
     if character["X-coordinate"] == 8 and character["Y-coordinate"] == 1 and board["Level"] == 1:
         return True
-    if character["X-coordinate"] == 8 and character["Y-coordinate"] == 8 and board["Level"] == 1:
+    if character["X-coordinate"] == 8 and character["Y-coordinate"] == 23 and board["Level"] == 1:
         return True
     return False
 
@@ -67,11 +67,11 @@ def in_special_coordinates(character, board):
 def which_boss(character):
     if character["X-coordinate"] == 1 and character["Y-coordinate"] == 1:
         return 1
-    if character["X-coordinate"] == 1 and character["Y-coordinate"] == 8:
+    if character["X-coordinate"] == 1 and character["Y-coordinate"] == 23:
         return 2
     if character["X-coordinate"] == 8 and character["Y-coordinate"] == 1:
         return 3
-    if character["X-coordinate"] == 8 and character["Y-coordinate"] == 8:
+    if character["X-coordinate"] == 8 and character["Y-coordinate"] == 23:
         return 4
 
 
@@ -88,7 +88,6 @@ def semi_boss_stage(character, board):
                     "Experience": 300, "ID": 3},
                 4: {"Name": "South Pillar: Vermilion Bird", "Health": 700, "Attack": (20, 46), "Dodge": 20,
                     "Experience": 300, "ID": 4},
-
             }
 
             boss = which_boss(character)
