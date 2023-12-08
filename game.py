@@ -13,15 +13,15 @@ import goals
 
 # Non-Built In Module
 import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore, Back
 colorama.init(autoreset=True)
 
 
 def describe_current_location(row, col, board, character):
-    print(f"\n{Back.BLACK}{chr(0x2554)}{chr(0x2550) * 71}{chr(0x2557)}")
+    print(f"\n{Back.BLACK}{chr(0x2554)}{chr(0x2550) * 176}{chr(0x2557)}")
 
     for x in range(row):
-        print(f"{chr(0x2551)}{Back.BLACK}{Fore.LIGHTWHITE_EX}{'  ---  ' * 10} {chr(0x2551)}")
+        print(f"{chr(0x2551)}{Back.BLACK}{Fore.LIGHTWHITE_EX}{'       ' * 25} {chr(0x2551)}")
         print(f"{chr(0x2551)}", end="")
 
         for y in range(col):
@@ -31,12 +31,12 @@ def describe_current_location(row, col, board, character):
                       f"{Fore.LIGHTWHITE_EX} |{Fore.RESET}", end="")
 
             else:
-                print(board[(x, y)],end="")
+                print(board[(x, y)], end="")
 
         print(f"{Back.BLACK}{Fore.LIGHTWHITE_EX} {chr(0x2551)}")
 
-    print(f"{chr(0x2551)}{Back.BLACK}{Fore.WHITE}{'  ---  ' * 10} {Fore.LIGHTWHITE_EX}{chr(0x2551)}")
-    print(f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{chr(0x255A)}{chr(0x2550) * 71}{chr(0x255D)}{Back.RESET}\n")
+    print(f"{chr(0x2551)}{Back.BLACK}{Fore.WHITE}{'       ' * 25} {Fore.LIGHTWHITE_EX}{chr(0x2551)}")
+    print(f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{chr(0x255A)}{chr(0x2550) * 176}{chr(0x255D)}{Back.RESET}\n")
 
 
 # Makes the Board
@@ -53,22 +53,26 @@ def make_board(rows, columns):
     """
     game_board = {}
 
+    # Shorter way of stop use of color
+    stop = Fore.RESET
+
     for x in range(rows):
         for y in range(columns):
             # space = f"|{x},{y}|"
+            # not_space = f"|{x},{y}|"
             space = "|     |"
             not_space = "|  .  |"
 
             if randint(1, 2) == 2:
-                game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{not_space}{Back.RESET}{Fore.RESET}"
+                game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{not_space}{Back.RESET}{stop}"
 
             else:
-                game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{space}{Back.RESET}{Fore.RESET}"
+                game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{space}{Back.RESET}{stop}"
 
-    game_board[(1, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|  1  |{Back.RESET}{Fore.RESET}"
-    game_board[(1, 8)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|  2  |{Back.RESET}{Fore.RESET}"
-    game_board[(8, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|  3  |{Back.RESET}{Fore.RESET}"
-    game_board[(8, 8)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}|  4  |{Back.RESET}{Fore.RESET}"
+    game_board[(1, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTBLUE_EX} 1 {stop} |{Back.RESET}{stop}"
+    game_board[(1, 23)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTYELLOW_EX} 2 {stop} |{Back.RESET}{stop}"
+    game_board[(8, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTCYAN_EX} 3 {stop} |{Back.RESET}{stop}"
+    game_board[(8, 23)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTMAGENTA_EX} 4 {stop} |{Back.RESET}{stop}"
 
     game_board["Level"] = 1
 
@@ -80,7 +84,6 @@ def make_board(rows, columns):
 
 # Prompts the user for Direction
 def get_user_choice():
-
     available_choices = {"1": "north", "2": "east", "3": "west", "4": "south"}
 
     while True:
@@ -90,7 +93,7 @@ def get_user_choice():
                             f"{chr(0x2551)}{Fore.LIGHTBLUE_EX}    1 = North  {' ' * 30}{Fore.RESET}{chr(0x2551)}\n"
                             f"{chr(0x2551)}{Fore.LIGHTYELLOW_EX}    2 = East   {' ' * 30}{Fore.RESET}{chr(0x2551)}\n"
                             f"{chr(0x2551)}{Fore.LIGHTCYAN_EX}    3 = West   {' ' * 30}{Fore.RESET}{chr(0x2551)}\n"
-                            f"{chr(0x2551)}{Fore.LIGHTMAGENTA_EX}    4 = South  {' ' * 30}{Fore.RESET}{chr(0x2551)}\n" 
+                            f"{chr(0x2551)}{Fore.LIGHTMAGENTA_EX}    4 = South  {' ' * 30}{Fore.RESET}{chr(0x2551)}\n"
                             f"{chr(0x255A)}{chr(0x2550) * 45}{chr(0x255D)}\n"
                             "Type number of corresponding action: \n").strip()
 
@@ -103,7 +106,6 @@ def get_user_choice():
 
 # Validates the move of the user
 def validate_move(rows, columns, character, direction, board):
-
     directions = {"north": -1, "south": 1, "east": 1, "west": -1}
 
     if direction == "north" or direction == "south":
@@ -128,7 +130,7 @@ def validate_move(rows, columns, character, direction, board):
 
 
 # Will move the character based on the direction
-def move_character(direction, character, board):
+def move_character(direction, character):
     direction_keys = {"north": (0, -1), "east": (1, 0), "south": (0, 1), "west": (-1, 0)}
     character["Y-coordinate"] += direction_keys[direction][0]
     character["X-coordinate"] += direction_keys[direction][1]
@@ -136,7 +138,6 @@ def move_character(direction, character, board):
 
 # Checks whether the character is alive
 def is_alive(character):
-
     if character["Health"][0] <= 0:
         return False
 
@@ -146,24 +147,22 @@ def is_alive(character):
 
 # Main game
 def simple_game():
+
     print("\n\n\nHello World, Overwrite this game introduction")
 
     chosen_character = char.choose_character()
     character = char.make_character(chosen_character)
     rows = 10
-    cols = 10
+    cols = 25
     board = make_board(rows, cols)
     describe_current_location(rows, cols, board, character)
 
     while is_alive(character):
-        # print(board)
         direction = get_user_choice()
-        # print(direction)
         valid_move = validate_move(rows, cols, character, direction, board)
-        # print(valid_move)
 
         if valid_move:
-            move_character(direction, character, board)
+            move_character(direction, character)
             describe_current_location(rows, cols, board, character)
             goals.semi_boss_stage(character, board)
             monster = battle.generate_monster()
