@@ -15,6 +15,16 @@ colorama.init(autoreset=True)
 
 # Checks if Current Boss is Alive to prevent Exp farming abuse
 def check_if_boss_is_alive(character, boss):
+    """
+    function checks if boss is alive
+
+    :param character: a dictionary of the character
+    :param boss: a dictionary of a boss
+    :precondition: character must be a dictionary containing the user's character values
+    :precondition: character must be a dictionary containing the encountered boss values
+    :post-condition: prevents users from fighting the boss again
+    :return: return Boolean True if boss is still alive otherwise Boolean Falls
+    """
     if 1 in character["Goal"] and character["X-coordinate"] == 1 and character["Y-coordinate"] == 1:
         print(f"{Fore.LIGHTYELLOW_EX}You already defeated {Fore.LIGHTBLUE_EX}{boss['Name']} ")
         return False
@@ -35,7 +45,17 @@ def check_if_boss_is_alive(character, boss):
 
 
 # Initiates Fight with the Boss
-def fight_the_boss(character, boss):
+def fight_the_semi_boss(character, boss):
+    """
+    functions runs the fight against a semi boss
+
+    :param character: a dictionary of the character
+    :param boss: a dictionary of a boss
+    :precondition: character must be a dictionary containing the user's character values
+    :precondition: character must be a dictionary containing the encountered boss values
+    :post-condition: Let character fight the boss
+    :post-condition: While end the function if Character dies
+    """
     battle.fight(character, boss)
 
     if boss['Health'] <= 0:
@@ -53,6 +73,16 @@ def fight_the_boss(character, boss):
 
 # Checks if you are in a semi boss stage
 def in_special_coordinates(character, board):
+    """
+    function checks if character is in special coordinates
+
+    :param board: a dictionary of the board
+    :param character: a dictionary of the character
+    :precondition: board must be a dictionary containing the coordinate values of the game board
+    :precondition: character must be a dictionary containing the user's character values
+    :post-condition: checks if character is in a special coordinate
+    :return: return Boolean True if in a special coordinate otherwise Boolean False
+    """
     if character["X-coordinate"] == 1 and character["Y-coordinate"] == 1 and board["Level"] == 1:
         return True
     if character["X-coordinate"] == 1 and character["Y-coordinate"] == 23 and board["Level"] == 1:
@@ -61,11 +91,27 @@ def in_special_coordinates(character, board):
         return True
     if character["X-coordinate"] == 8 and character["Y-coordinate"] == 23 and board["Level"] == 1:
         return True
+    if character["X-coordinate"] == 4 and character["Y-coordinate"] == 13 and board["Level"] == 1:
+        return True
+    if character["X-coordinate"] == 4 and character["Y-coordinate"] == 12 and board["Level"] == 1:
+        return True
+    if character["X-coordinate"] == 5 and character["Y-coordinate"] == 13 and board["Level"] == 1:
+        return True
+    if character["X-coordinate"] == 5 and character["Y-coordinate"] == 12 and board["Level"] == 1:
+        return True
     return False
 
 
 # Determines Which semi Boss Coordinate You are on
 def which_boss(character):
+    """
+    function checks which boss is character fighting
+
+    :param character: a dictionary of the character
+    :precondition: character must be a dictionary containing the user's character values
+    :post-condition: checks which boss the character is fighting if in a special tile
+    :return: return a number corresponding to id of the boss character encountered
+    """
     if character["X-coordinate"] == 1 and character["Y-coordinate"] == 1:
         return 1
     if character["X-coordinate"] == 1 and character["Y-coordinate"] == 23:
@@ -77,7 +123,18 @@ def which_boss(character):
 
 
 # Function for Semi Boss before Final Boss
-def semi_boss_stage(character, board):
+def is_character_in_boss_tile(character, board):
+    """
+    run the fight against semi boss
+
+    :param board: a dictionary of the board
+    :param character: a dictionary of the character
+    :precondition: board must be a dictionary containing the coordinate values of the game board
+    :precondition: character must be a dictionary containing the user's character values
+    :post-condition: run the whole fight of the semi boss
+    :post-condition: if character choose to flee fight will stop
+    :post-condition: upon fleeing the boss health will restore to its max
+     """
     if in_special_coordinates(character, board):
         if board["Level"] == 1:
             level_1_bosses = {
@@ -98,20 +155,36 @@ def semi_boss_stage(character, board):
 
             else:
                 print("You have reached one of the four pillars of this stage")
-                fight_the_boss(character, level_1_bosses[boss])
+                fight_the_semi_boss(character, level_1_bosses[boss])
 
     else:
         return
 
 
+# Checks if character is ready for final boss and informs the player
 def check_if_ready_for_final_boss(character):
+    """
+    function checks if ready for final boss
+
+    :param character: a dictionary of the character
+    :pre-condition: must be dictionary containing the user's character values
+    :post-condition: add key and value of Final Boss: True to allow character to access final stage
+    """
     if sorted([1, 2, 3, 4]) == sorted(character["Goal"]):
-        print(f"{Fore.LIGHTYELLOW_EX}A Voice whispers above the clouds")
-        print(f"{Fore.LIGHTYELLOW_EX}You are ready to face the final boss and return to Earth")
-        print(f"You will see him in the {Fore.LIGHTGREEN_EX}middle of Terra")
+        character["Final Boss"] = True
+        print(character)
 
 
+# Final Boss Fight which is slightly different from a normal fight
 def fight_final_boss(character):
+    """
+    run the fight against final boss
+
+    :param character: a dictionary
+    :precondition: character must be a dictionary containing the user's character values
+    :post-condition: run the whole fight of the final boss
+    :post-condition: game will end once the boss is dead
+    """
     boss = {
         "Name": "Demon Lord", "Health": 1000, "Attack": (45, 90),
         "Skills": ("Battle Cry", "Brace", "Inferno Blasy")
