@@ -4,11 +4,12 @@ A01378156
 Richard Li
 A00995183
 """
+import random
 from random import randint
 from game import is_alive
 
 import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore
 colorama.init(autoreset=True)
 
 
@@ -79,22 +80,44 @@ def after_fight(character, monster):
     print()
 
 
+# Passive Regeneration of Character during fights
+def passive_regeneration(character):
+    character["Mana"][0] = min(character["Mana"][0] + 5, character["Mana"][1])
+    print("Your mana passively replenish by 5")
+
+    character["Health"][0] = min(character["Health"][0] + 4, character["Health"][1])
+    print("Your health passively replenish by 3")
+
+
+# Print How much you damage the monster
+def normal_attack_description(character, monster):
+    print(f"You slashed the monster for {Fore.WHITE}{character['Attack']}{Fore.RESET} leaving its Health "
+          f"{Fore.LIGHTRED_EX}{monster['Health']}")
+    print()
+
+
+# Prompts user for choice when in fight
+def user_prompt():
+    user_input = input(f"\n{chr(0x2554)}{chr(0x2550) * 27}{chr(0x2557)}\n"
+                       f"{chr(0x2551)}  What do you want to do:  {chr(0x2551)}\n"
+                       f"{chr(0x2551)}                           {chr(0x2551)}\n"
+                       f"{chr(0x2551)}    1 = Normal Attack      {chr(0x2551)}\n"
+                       f"{chr(0x2551)}    {Fore.LIGHTMAGENTA_EX}2 = Skill Attack{Fore.RESET}       {chr(0x2551)}\n"
+                       f"{chr(0x2551)}    {Fore.LIGHTGREEN_EX}3 = Heal{Fore.RESET}               {chr(0x2551)}\n"
+                       f"{chr(0x2551)}    {Fore.LIGHTYELLOW_EX}4 = Flee{Fore.RESET}               {chr(0x2551)}\n"
+                       f"{chr(0x255A)}{chr(0x2550) * 27}{chr(0x255D)}\n"
+                       "Type a number to corresponding action: \n")
+    return user_input
+
+
 # Function whenever Character is in a fight
 def fight(character, monster):
     user_choices = ("1", "2", "3", "4")
 
     while character["Health"][0] >= 0 and monster["Health"] > 0:
-        fight_introduction(character, monster)
 
-        user_input = input(f"\n{chr(0x2554)}{chr(0x2550) * 27}{chr(0x2557)}\n"
-                           f"{chr(0x2551)}  What do you want to do:  {chr(0x2551)}\n"
-                           f"{chr(0x2551)}                           {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    1 = Normal Attack      {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    {Fore.LIGHTMAGENTA_EX}2 = Skill Attack{Fore.RESET}       {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    {Fore.LIGHTGREEN_EX}3 = Heal{Fore.RESET}               {chr(0x2551)}\n"
-                           f"{chr(0x2551)}    {Fore.LIGHTYELLOW_EX}4 = Flee{Fore.RESET}               {chr(0x2551)}\n"
-                           f"{chr(0x255A)}{chr(0x2550) * 27}{chr(0x255D)}\n"
-                           "Type a number to corresponding action: \n")
+        fight_introduction(character, monster)
+        user_input = user_prompt()
 
         if user_input not in user_choices:
             print("Please choose a number from the choices given")
@@ -106,12 +129,12 @@ def fight(character, monster):
 
         elif user_input == "1":
             monster["Health"] -= character["Attack"]
+
             if monster["Health"] <= 0:
                 break
+
             else:
-                print(f"You slashed the monster for {Fore.WHITE}{character['Attack']}{Fore.RESET} leaving its Health "
-                      f"{Fore.LIGHTRED_EX}{monster['Health']}")
-                print()
+                normal_attack_description(character, monster)
                 monster_attack(character, monster)
 
         elif user_input == "3":
@@ -123,19 +146,15 @@ def fight(character, monster):
             monster_attack(character, monster)
 
         if is_alive(character):
-
-            character["Mana"][0] = min(character["Mana"][0] + 5, character["Mana"][1])
-            print("Your mana passively replenish by 5")
-
-            character["Health"][0] = min(character["Health"][0] + 3, character["Health"][1])
-            print("Your health passively replenish by 3")
+            passive_regeneration(character)
 
         else:
             break
 
     if not is_alive(character):
-        print("You died Lmao")
+        print("You died\nGAME OVER")
         return
+
     else:
         after_fight(character, monster)
 
@@ -209,6 +228,20 @@ def fight_with_skill(character, monster):
               f"leaving its Health {Fore.LIGHTRED_EX}{monster['Health']}")
         print()
         return
+
+
+def try_to_flee_successfully(character):
+    chance = random.randint(1, 10)
+    cannot_flee_chance = (1, 5, 10)
+
+    if chance not in cannot_flee_chance:
+        print(f"You successfully Flee you coward")
+        return False
+    else:
+        print("You tried to flee but you were bluntly hit and failed to escape")
+        print(f"You took {Fore.LIGHTRED_EX} 5 {Fore.RESET} damage")
+        character["Health"][0] -= 5
+        return True
 
 
 def main():
