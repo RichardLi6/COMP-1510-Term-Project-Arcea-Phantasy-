@@ -48,31 +48,38 @@ def make_board(rows, columns):
     :param columns: an integer representing the number of columns of the board
     :precondition: rows must be greater than or equal to 2
     :precondition: columns must be greater or equal to than 2
-    :postcondition: creates a dictionary representing an ASCII art game board with dimensions rows x columns
+    :post-condition: creates a dictionary representing an ASCII art game board with dimensions rows x columns
     :return: the ASCII map of the game board
     """
     game_board = {}
 
     # Shorter way of stop use of color
     stop = Fore.RESET
-
+    tree = "4"
     for x in range(rows):
         for y in range(columns):
-            # space = f"|{x},{y}|"
-            # not_space = f"|{x},{y}|"
             space = "|     |"
-            not_space = "|  .  |"
+            tree = f"| {Fore.LIGHTGREEN_EX} * {stop} |"
 
             if randint(1, 2) == 2:
-                game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{not_space}{Back.RESET}{stop}"
+                game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{tree}{Back.RESET}{stop}"
 
             else:
                 game_board[(x, y)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}{space}{Back.RESET}{stop}"
 
-    game_board[(1, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTBLUE_EX} 1 {stop} |{Back.RESET}{stop}"
-    game_board[(1, 23)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTYELLOW_EX} 2 {stop} |{Back.RESET}{stop}"
-    game_board[(8, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTCYAN_EX} 3 {stop} |{Back.RESET}{stop}"
-    game_board[(8, 23)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTMAGENTA_EX} 4 {stop} |{Back.RESET}{stop}"
+    # Semi Boss
+    game_board[(1, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTBLUE_EX} ? {stop} |{Back.RESET}{stop}"
+    game_board[(1, 23)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTYELLOW_EX} ??{stop} |{Back.RESET}{stop}"
+    game_board[(8, 1)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTCYAN_EX}???{stop} |{Back.RESET}{stop}"
+    game_board[(8, 23)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTMAGENTA_EX}???{stop} |{Back.RESET}{stop}"
+
+    # Final Boss
+    sun = chr(0x2302) + chr(0x03C6) + chr(0x2302)
+
+    game_board[(4, 13)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTRED_EX}{sun}{stop} |{Back.RESET}{stop}"
+    game_board[(4, 12)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTRED_EX}{sun}{stop} |{Back.RESET}{stop}"
+    game_board[(5, 13)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTRED_EX}{sun}{stop} |{Back.RESET}{stop}"
+    game_board[(5, 12)] = f"{Back.BLACK}{Fore.LIGHTWHITE_EX}| {Fore.LIGHTRED_EX}{sun}{stop} |{Back.RESET}{stop}"
 
     game_board["Level"] = 1
 
@@ -111,8 +118,9 @@ def validate_move(rows, columns, character, direction, board):
     if direction == "north" or direction == "south":
         to_be_y_coordinate = character["X-coordinate"] + directions[direction]
 
-        if to_be_y_coordinate < 0 or to_be_y_coordinate == columns:
+        if to_be_y_coordinate < 0 or to_be_y_coordinate == rows:
             describe_current_location(rows, columns, board, character)
+            print("You cannot go there")
             return False
 
         else:
@@ -121,8 +129,9 @@ def validate_move(rows, columns, character, direction, board):
     if direction == "west" or direction == "east":
         to_be_x_coordinate = character["Y-coordinate"] + directions[direction]
 
-        if to_be_x_coordinate < 0 or to_be_x_coordinate == rows:
+        if to_be_x_coordinate < 0 or to_be_x_coordinate == columns:
             describe_current_location(rows, columns, board, character)
+            print("You cannot go there")
             return False
 
         else:
@@ -177,6 +186,7 @@ def simple_game():
                 print("This is the else block")
 
             char.level_up(character, chosen_character)
+            goals.check_if_ready_for_final_boss(character)
 
 
 def main():
