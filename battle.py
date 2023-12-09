@@ -211,7 +211,8 @@ def fight(character, monster):
             continue
 
         if user_input == "4":
-            print(f"You successfully Flee you coward")
+            if try_to_flee_successfully(character):
+                print(f"You run without ever looking back")
             return
 
         elif user_input == "1":
@@ -357,7 +358,7 @@ def try_to_flee_successfully(character):
     cannot_flee_chance = (1, 5, 10)
 
     if chance not in cannot_flee_chance:
-        print(f"You successfully Flee you coward")
+        print(f"You look back and started running")
         return False
     else:
         print("You tried to flee but you were bluntly hit and failed to escape")
