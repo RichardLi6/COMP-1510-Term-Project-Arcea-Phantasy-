@@ -10,11 +10,11 @@ import random_event
 import battle
 import goals
 import board as b
-
+import story
 
 # Non-Built In Module
 import colorama
-from colorama import Fore
+from colorama import Style
 colorama.init(autoreset=True)
 
 
@@ -23,9 +23,7 @@ def simple_game():
     """
     collection of functions running the game
     """
-
-    print("\n\n\nHello World, Overwrite this game introduction")
-
+    story.print_game_introduction()
     chosen_character = char.choose_character()
     character = char.make_character(chosen_character)
     rows = 10
@@ -34,6 +32,7 @@ def simple_game():
     b.describe_current_location(rows, cols, board, character)
 
     while battle.is_alive(character):
+        print(f"{Style.RESET_ALL}")
         direction = b.get_user_choice()
         valid_move = b.validate_move(rows, cols, character, direction, board)
 
@@ -46,12 +45,12 @@ def simple_game():
 
             if you_encountered_a_foe and battle.is_alive(character):
                 battle.fight(character, monster)
-                print("Sheesh")
 
             else:
                 b.describe_current_location(rows, cols, board, character)
-                print("This is the else block")
+                battle.passive_regeneration(character)
 
+            print(f"{Style.RESET_ALL}")
             char.level_up(character, chosen_character)
             goals.check_if_ready_for_final_boss(character)
 
