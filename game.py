@@ -18,23 +18,6 @@ from colorama import Fore
 colorama.init(autoreset=True)
 
 
-# Checks whether the character is alive
-def is_alive(character):
-    """
-    function checks if user is alive
-
-    :param character: a dictionary representing that character's stats
-    :post-condition: checks the character Health Value
-    :return: return False if character Health is equal to or less than zero
-    :return: return True if character Health is greater than 0
-    """
-    if character["Health"][0] <= 0:
-        return False
-
-    else:
-        return True
-
-
 # Main game
 def simple_game():
     """
@@ -50,18 +33,18 @@ def simple_game():
     board = b.make_board(rows, cols)
     b.describe_current_location(rows, cols, board, character)
 
-    while is_alive(character):
-        direction = get_user_choice()
-        valid_move = validate_move(rows, cols, character, direction, board)
+    while battle.is_alive(character):
+        direction = b.get_user_choice()
+        valid_move = b.validate_move(rows, cols, character, direction, board)
 
         if valid_move:
-            move_character(direction, character)
+            b.move_character(direction, character)
             b.describe_current_location(rows, cols, board, character)
             goals.is_character_in_boss_tile(character, board)
             monster = battle.generate_monster()
             you_encountered_a_foe = random_event.random_encounter(monster, character, board)
 
-            if you_encountered_a_foe and is_alive(character):
+            if you_encountered_a_foe and battle.is_alive(character):
                 battle.fight(character, monster)
                 print("Sheesh")
 

@@ -4,13 +4,32 @@ A01378156
 Richard Li
 A00995183
 """
+# Builtin Modules
 import random
 from random import randint
-from game import is_alive
 
+
+# Non Builtin Modules
 import colorama
 from colorama import Fore
 colorama.init(autoreset=True)
+
+
+# Checks whether the character is alive
+def is_alive(character):
+    """
+    function checks if user is alive
+
+    :param character: a dictionary representing that character's stats
+    :post-condition: checks the character Health Value
+    :return: return False if character Health is equal to or less than zero
+    :return: return True if character Health is greater than 0
+    """
+    if character["Health"][0] <= 0:
+        return False
+
+    else:
+        return True
 
 
 # Heal option for User
@@ -64,7 +83,7 @@ def fight_introduction(character, monster):
     function prints battle stats of character and monster
 
     :param character: a dictionary of the character
-    :para monster: a dictionary of the monster
+    :param monster: a dictionary of the monster
     :precondition: character must be a dictionary containing the user's character values
     :precondition: monster must be a dictionary containing the monster's stats
     :post-condition: prints the users health and mana
@@ -89,7 +108,7 @@ def after_fight(character, monster):
     function prints the after effects winning a fight
 
     :param character: a dictionary of the character
-    :para monster: a dictionary of the monster
+    :param monster: a dictionary of the monster
     :precondition: character must be a dictionary containing the user's character values
     :precondition: monster must be a dictionary containing the monster's stats
     :post-condition: inform the user winning against the monster and its rewards
@@ -138,7 +157,7 @@ def normal_attack_description(character, monster):
     function prints description of character normal attack damage
 
     :param character: a dictionary of the character
-    :para monster: a dictionary of the monster
+    :param monster: a dictionary of the monster
     :precondition: character must be a dictionary containing the user's character values
     :precondition: monster must be a dictionary containing the monster's stats
     :post-condition: prints how much the user's character damage the monster
@@ -174,7 +193,7 @@ def fight(character, monster):
     function runs the fight of character and monster
 
     :param character: a dictionary of the character
-    :para monster: a dictionary of the monster
+    :param monster: a dictionary of the monster
     :precondition: character must be a dictionary containing the user's character values
     :precondition: monster must be a dictionary containing the monster's stats
     :post-condition: runs the sequence of command involve during the character fighting the monster
@@ -233,7 +252,7 @@ def monster_attack(character, monster):
     function runs the monster's turn again character in fights
 
     :param character: a dictionary of the character
-    :para monster: a dictionary of the monster
+    :param monster: a dictionary of the monster
     :precondition: character must be a dictionary containing the user's character values
     :precondition: monster must be a dictionary containing the monster's stats
     :post-condition: subtracts the character's health base in monster attack
@@ -286,7 +305,7 @@ def fight_with_skill(character, monster):
     function runs the commands when character pick skill attack option from user prompt
 
     :param character: a dictionary of the character
-    :para monster: a dictionary of the monster
+    :param monster: a dictionary of the monster
     :precondition: character must be a dictionary containing the user's character values
     :precondition: monster must be a dictionary containing the monster's stats
     :post-condition: Character will use consume mana base on the skill being use
