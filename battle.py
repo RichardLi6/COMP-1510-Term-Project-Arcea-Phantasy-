@@ -69,10 +69,13 @@ def generate_monster():
     beginner_monsters_list = {
         1: {"Name": "Slime", "Health": 60, "Attack": (7, 10), "Experience": 15},
         2: {"Name": "Undead", "Health": 80, "Attack": (5, 7), "Experience": 15},
-        3: {"Name": "Imp", "Health": 50, "Attack": (9, 15), "Experience": 20}
+        3: {"Name": "Imp", "Health": 50, "Attack": (9, 15), "Experience": 20},
+        4: {"Name": "Golem", "Health": 120, "Attack": (6, 8), "Experience": 27},
+        5: {"Name": "Fallen", "Health": 20, "Attack": (12, 15), "Experience": 10},
+        6: {"Name": "Cthulhu", "Health": 50, "Attack": (10, 10), "Experience": 15}
     }
 
-    random_number = randint(1, 3)
+    random_number = randint(1, 6)
     monster = beginner_monsters_list[random_number]
     return monster
 
