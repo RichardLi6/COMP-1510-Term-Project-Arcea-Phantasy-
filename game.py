@@ -50,7 +50,7 @@ def simple_game():
                 print(f"{Style.RESET_ALL}")
 
             char.level_up(character, chosen_character)
-            goals.check_if_ready_for_final_boss(character)
+            goals.check_if_win(character)
 
 
 def main():
