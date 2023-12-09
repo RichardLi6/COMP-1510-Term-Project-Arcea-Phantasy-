@@ -36,7 +36,3 @@ class TestValidateMove(TestCase):
         expected_output = False
         actual_output = validate_move(row, col, character, direction, board_2)
         self.assertEqual(expected_output, actual_output)
-
-
-
-
