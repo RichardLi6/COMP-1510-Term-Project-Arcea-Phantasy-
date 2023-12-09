@@ -5,7 +5,6 @@ Richard Li
 A00995183
 """
 import battle
-import game
 
 # Non Built In Modules
 import colorama
@@ -226,13 +225,13 @@ def fight_final_boss(character):
             battle.fight_with_skill(character, boss)
             battle.monster_attack(character, boss)
 
-        if game.is_alive(character):
+        if battle.is_alive(character):
             battle.passive_regeneration(character)
 
         else:
             break
 
-    if not game.is_alive(character):
+    if not battle.is_alive(character):
         print("You died Lmao")
         return
 
