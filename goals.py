@@ -61,7 +61,6 @@ def fight_the_semi_boss(character, boss):
         character["Goal"].append(boss["ID"])
         print(f"You defeated {Fore.LIGHTYELLOW_EX}{boss['Name']}")
         print("You defeated one of the 4 Pillars")
-        print(character["Goal"])
 
     elif boss['Health'] >= 0 and character['Health'][0] > 0:
         print("You successfully run from the Pillar Boss")
@@ -154,7 +153,7 @@ def is_character_in_boss_tile(character, board):
 
 
 # Checks if character is finish
-def check_if_ready_for_final_boss(character):
+def check_if_win(character):
     """
     function checks if ready for final boss
 
@@ -166,6 +165,9 @@ def check_if_ready_for_final_boss(character):
         character["Final Boss"] = True
         print("You Defeated the Last Boss ")
         print("Suddenly you wake up noticing you still have Exams coming for 1510")
+        print(f"{Fore.LIGHTYELLOW_EX}YOU WIN\nGAME OVER")
+        print(f"The Game is free to play and you can fight the boss again")
+        character["GOAL"] = []
 
 
 def main():
