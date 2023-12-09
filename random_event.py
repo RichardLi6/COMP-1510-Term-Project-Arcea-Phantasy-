@@ -8,7 +8,7 @@ from random import randint
 from goals import in_special_coordinates
 
 import colorama
-from colorama import Fore, Back, Style
+from colorama import Fore
 colorama.init(autoreset=True)
 
 
@@ -20,8 +20,8 @@ def random_encounter(monster, character, board):
     :param character: a dictionary of chosen character's stats
     :param board: a dictionary representing the ASCII art game board
     :precondition: character moves in a direction
-    :postcondition: Checks for a random encounter with a monster on the game board.
-    :postcondition: If a random encounter happens, player is prompt to fight or flee
+    :post-condition: Checks for a random encounter with a monster on the game board.
+    :post-condition: If a random encounter happens, player is prompt to fight or flee
     :return: True if there is a random encounter, False if there is not
     """
 
@@ -30,7 +30,7 @@ def random_encounter(monster, character, board):
 
     random_number = randint(1, 10)
 
-    encounter_chance = (1, 3, 9, 7,)
+    encounter_chance = (11, 12)
     if random_number in encounter_chance:
         return fight_or_flee(monster)
     else:
@@ -44,7 +44,7 @@ def fight_or_flee(monster):
 
     :param monster: a dictionary containing a dictionary of different types of monsters and stats
     :precondition: the user encounters a monster
-    :postcondition: consistently prompts user to input '1' or '2'
+    :post-condition: consistently prompts user to input '1' or '2'
     :return: True if user decides to fight, False if user attempts to flee
     """
     while True:

@@ -90,14 +90,17 @@ def in_special_coordinates(character, board):
         return True
     if character["X-coordinate"] == 8 and character["Y-coordinate"] == 23 and board["Level"] == 1:
         return True
-    if character["X-coordinate"] == 4 and character["Y-coordinate"] == 13 and board["Level"] == 1:
-        return True
-    if character["X-coordinate"] == 4 and character["Y-coordinate"] == 12 and board["Level"] == 1:
-        return True
-    if character["X-coordinate"] == 5 and character["Y-coordinate"] == 13 and board["Level"] == 1:
-        return True
-    if character["X-coordinate"] == 5 and character["Y-coordinate"] == 12 and board["Level"] == 1:
-        return True
+
+    if character["Final Boss"]:
+        if character["X-coordinate"] == 4 and character["Y-coordinate"] == 13 and board["Level"] == 1:
+            return True
+        if character["X-coordinate"] == 4 and character["Y-coordinate"] == 12 and board["Level"] == 1:
+            return True
+        if character["X-coordinate"] == 5 and character["Y-coordinate"] == 13 and board["Level"] == 1:
+            return True
+        if character["X-coordinate"] == 5 and character["Y-coordinate"] == 12 and board["Level"] == 1:
+            return True
+
     return False
 
 
@@ -171,7 +174,6 @@ def check_if_ready_for_final_boss(character):
     """
     if sorted([1, 2, 3, 4]) == sorted(character["Goal"]):
         character["Final Boss"] = True
-        print(character)
 
 
 # Final Boss Fight which is slightly different from a normal fight

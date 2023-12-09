@@ -47,10 +47,8 @@ def simple_game():
                 battle.fight(character, monster)
 
             else:
-                b.describe_current_location(rows, cols, board, character)
-                battle.passive_regeneration(character)
+                print(f"{Style.RESET_ALL}")
 
-            print(f"{Style.RESET_ALL}")
             char.level_up(character, chosen_character)
             goals.check_if_ready_for_final_boss(character)
 

@@ -18,7 +18,7 @@ def make_character(character):
 
     :param character: a string containing character information
     :precondition: character must be one of the keys of the dictionary
-    :postcondition: creates dictionary containing the stats of the game character.
+    :post-condition: creates dictionary containing the stats of the game character.
     :return: returns the dictionary of character stats
     """
     character_stats = {
@@ -36,6 +36,7 @@ def make_character(character):
             "Level": 1,
             "Dodge": 10,
             "Goal": [],
+            "Final Boss": False,
             "Skill": {
                 1: ("Double Slash", 10, 10),
             }
@@ -54,15 +55,15 @@ def make_character(character):
             "Level": 1,
             "Dodge": 10,
             "Goal": [],
+            "Final Boss": False,
             "Skill": {
-                1: ("Arrow Shot", 10, 10),
-                2: ("Quick Slash", 15, 20)
+                1: ("Arrow Shot", 10, 10)
             }
         },
         "Mage": {
             "Class": "Mage",
             "Health": [40, 40],
-            "Attack": 6,
+            "Attack": 999,
             "Mana": [80, 80],
             "X-coordinate": 0,
             "Y-coordinate": 0,
@@ -73,8 +74,9 @@ def make_character(character):
             "Level": 1,
             "Dodge": 10,
             "Goal": [],
+            "Final Boss": False,
             "Skill": {
-                1: ("Fireball", 10, 10)
+                1: ("Fireball", 15, 10)
             }
         }
     }
@@ -110,12 +112,12 @@ def increased_stats(character, character_class):
     :param character_class: user input of chosen character
     :precondition: user must have chosen a character
     :precondition: character must have enough experience to level up
-    :postcondition: character stats increase upon level up
+    :post-condition: character stats increase upon level up
     """
     stat_increases = {
         "Warrior": {"Health": 25, "Attack": 7, "Mana": 20},
-        "Ranger": {"Health": 20, "Attack": 5, "Mana": 25},
-        "Mage": {"Health": 15, "Attack": 6, "Mana": 30}
+        "Ranger": {"Health": 20, "Attack": 6, "Mana": 25},
+        "Mage": {"Health": 15, "Attack": 5, "Mana": 30}
     }
 
     character["Health"][1] += stat_increases[character_class]["Health"]
@@ -168,7 +170,7 @@ def level_up(character, chosen_character):
     :param chosen_character: user input of chosen character
     :precondition: user must have chosen a character
     :precondition: character must have enough experience to level up
-    :postcondition: character stats increase upon level up
+    :post-condition: character stats increase upon level up
     """
     level_requirements = {1: 40, 2: 70, 3: 90, 4: 130, 5: 155, 6: 180}
 
@@ -177,6 +179,7 @@ def level_up(character, chosen_character):
 
     if current_level == 6:
         print("Max Level no More Level Ups")
+        return
 
     if current_level in level_requirements and character["Experience"] >= level_requirements[current_level]:
         print(f"{Fore.LIGHTYELLOW_EX}You have Level Up! ")
