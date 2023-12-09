@@ -38,7 +38,7 @@ def make_character(character):
             "Goal": [],
             "Final Boss": False,
             "Skill": {
-                1: ("Double Slash", 10, 10),
+                1: ("Double Slash", 10, 10)
             }
         },
         "Ranger": {
@@ -127,6 +127,14 @@ def increased_stats(character, character_class):
 
 # New Skills
 def new_skills(character, character_class):
+    """
+    function adds new character skill base on class
+
+    :param character: a dictionary representing user character stats
+    :param character_class: a string representing user character's class
+    :precondition: only appends skill once character reaches a specific level
+    :post-condition: appends character skills key with a new skill
+    """
     if character_class == "Warrior":
         warrior_skills = {
             2: ("Vertical Slash", 15, 20),
