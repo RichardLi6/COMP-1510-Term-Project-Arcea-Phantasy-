@@ -202,9 +202,6 @@ def level_up(character, chosen_character):
         increased_stats(character, character_class)
         new_skills(character, character_class)
 
-    # Special case for Ranger at level 6, get extra Dodge
-    if character_class == "Ranger" and current_level == 5:
-        character["Dodge"] += 10
     # Special case for Warrior at level 5, get extra Health
     if character_class == "Warrior" and current_level == 4:
         character["Health"] += 10
