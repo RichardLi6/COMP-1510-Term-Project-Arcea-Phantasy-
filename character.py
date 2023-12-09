@@ -44,7 +44,7 @@ def make_character(character):
         "Ranger": {
             "Class": "Ranger",
             "Health": [50, 50],
-            "Attack": 8,
+            "Attack": 9,
             "Mana": [60, 60],
             "X-coordinate": 0,
             "Y-coordinate": 0,
@@ -63,7 +63,7 @@ def make_character(character):
         "Mage": {
             "Class": "Mage",
             "Health": [40, 40],
-            "Attack": 999,
+            "Attack": 9,
             "Mana": [80, 80],
             "X-coordinate": 0,
             "Y-coordinate": 0,
