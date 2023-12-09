@@ -91,16 +91,6 @@ def in_special_coordinates(character, board):
     if character["X-coordinate"] == 8 and character["Y-coordinate"] == 23 and board["Level"] == 1:
         return True
 
-    if character["Final Boss"]:
-        if character["X-coordinate"] == 4 and character["Y-coordinate"] == 13 and board["Level"] == 1:
-            return True
-        if character["X-coordinate"] == 4 and character["Y-coordinate"] == 12 and board["Level"] == 1:
-            return True
-        if character["X-coordinate"] == 5 and character["Y-coordinate"] == 13 and board["Level"] == 1:
-            return True
-        if character["X-coordinate"] == 5 and character["Y-coordinate"] == 12 and board["Level"] == 1:
-            return True
-
     return False
 
 
@@ -163,7 +153,7 @@ def is_character_in_boss_tile(character, board):
         return
 
 
-# Checks if character is ready for final boss and informs the player
+# Checks if character is finish
 def check_if_ready_for_final_boss(character):
     """
     function checks if ready for final boss
@@ -174,70 +164,6 @@ def check_if_ready_for_final_boss(character):
     """
     if sorted([1, 2, 3, 4]) == sorted(character["Goal"]):
         character["Final Boss"] = True
-
-
-# Final Boss Fight which is slightly different from a normal fight
-def fight_final_boss(character):
-    """
-    run the fight against final boss
-
-    :param character: a dictionary
-    :precondition: character must be a dictionary containing the user's character values
-    :post-condition: run the whole fight of the final boss
-    :post-condition: game will end once the boss is dead
-    """
-    boss = {
-        "Name": "Demon Lord", "Health": 1000, "Attack": (45, 90),
-        "Skills": ("Battle Cry", "Brace", "Inferno Blasy")
-               }
-    user_choices = ("1", "2", "3", "4")
-
-    while character["Health"][0] >= 0 and boss["Health"] > 0:
-
-        user_input = battle.user_prompt()
-
-        if user_input not in user_choices:
-            print("Please choose a number from the choices given")
-            continue
-
-        if user_input == "4":
-
-            if battle.try_to_flee_successfully(character):
-                return
-
-            else:
-                continue
-
-        elif user_input == "1":
-            boss["Health"] -= character["Attack"]
-
-            if boss["Health"] <= 0:
-                break
-
-            else:
-                battle.normal_attack_description(character)
-                battle.monster_attack(character, boss)
-
-        elif user_input == "3":
-            print("The monster was a tad bit faster than you ")
-            battle.monster_attack(character, boss)
-            battle.heal_character(character)
-
-        else:
-            battle.fight_with_skill(character, boss)
-            battle.monster_attack(character, boss)
-
-        if battle.is_alive(character):
-            battle.passive_regeneration(character)
-
-        else:
-            break
-
-    if not battle.is_alive(character):
-        print("You died Lmao")
-        return
-
-    else:
         print("You Defeated the Last Boss ")
         print("Suddenly you wake up noticing you still have Exams coming for 1510")
 
