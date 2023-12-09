@@ -6,12 +6,12 @@ A00995183
 """
 
 import colorama
-from colorama import Fore, Back
+from colorama import Fore
 colorama.init(autoreset=True)
 
 
 def print_game_introduction():
-    print(f"\n\n\n{Fore.LIGHTCYAN_EX}Doomed Odyssey: The Final Eclipse Threat\n")
+    print(f"\n\n\n{Fore.LIGHTCYAN_EX}Doomed Odyssey: The Coming of the 4 Pillars of Threat\n")
     print("The winds of destiny carry you to the brink of perilous adventure. \nAs the chosen hero, your quest begins"
           "in a world shrouded in mystery and threatened by an ancient darkness.\nFour powerful mini bosses guard the"
           " path to salvation,\neach challenging your strength and cunning Uncover the secrets of the Realms,\n"
