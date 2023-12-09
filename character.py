@@ -86,6 +86,10 @@ def make_character(character):
 
 # Prompt User for Choice of Class
 def choose_character():
+    """
+    function prompts user to choose a character class
+    :return: a string corresponding to chosen class
+    """
     valid_answers = {"1": "Warrior", "2": "Ranger", "3": "Mage"}
     while True:
         user_class = input(f"{chr(0x2554)}{chr(0x2550) * 40}{chr(0x2557)}\n"
