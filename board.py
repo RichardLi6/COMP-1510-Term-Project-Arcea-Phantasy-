@@ -19,7 +19,7 @@ def describe_current_location(row, col, board, character):
     :param row: an integer representing the rows in the game
     :param col: an integer representing the col in game
     :param board: a dictionary representing the coordinate values
-    :character: a dictionary representing the user character stats
+    :param character: a dictionary representing the user character stats
     :post-condition: print the user's current location
     """
     print(f"\n{Back.BLACK}{chr(0x2554)}{chr(0x2550) * 176}{chr(0x2557)}")
@@ -152,7 +152,7 @@ def validate_move(rows, columns, character, direction, board):
         to_be_x_coordinate = character["Y-coordinate"] + directions[direction]
 
         if to_be_x_coordinate < 0 or to_be_x_coordinate == columns:
-            board.describe_current_location(rows, columns, board, character)
+            describe_current_location(rows, columns, board, character)
             print("You cannot go there")
             return False
 
