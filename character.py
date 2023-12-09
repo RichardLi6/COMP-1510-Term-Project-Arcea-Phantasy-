@@ -88,6 +88,7 @@ def make_character(character):
 def choose_character():
     """
     function prompts user to choose a character class
+
     :return: a string corresponding to chosen class
     """
     valid_answers = {"1": "Warrior", "2": "Ranger", "3": "Mage"}
