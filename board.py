@@ -17,7 +17,7 @@ def describe_current_location(row, col, board, character):
     function shows the current location of the user
 
     :param row: an integer representing the rows in the game
-    :param col: an integer representing the col in game
+    :param col: an integer representing the columns in game
     :param board: a dictionary representing the coordinate values
     :param character: a dictionary representing the user character stats
     :post-condition: print the user's current location
