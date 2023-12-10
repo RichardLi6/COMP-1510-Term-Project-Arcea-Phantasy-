@@ -62,7 +62,6 @@ def main():
     run the game :
     """
     simple_game()
-    pass
 
 
 if __name__ == "__main__":

@@ -170,9 +170,3 @@ def check_if_win(character):
         character["GOAL"] = []
 
 
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()

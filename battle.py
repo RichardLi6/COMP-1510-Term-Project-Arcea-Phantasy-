@@ -370,9 +370,4 @@ def try_to_flee_successfully(character):
         return True
 
 
-def main():
-    pass
 
-
-if __name__ == "__main__":
-    main()

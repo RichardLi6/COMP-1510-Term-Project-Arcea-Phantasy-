@@ -207,9 +207,3 @@ def level_up(character, chosen_character):
         character["Health"] += 10
 
 
-def main():
-    pass
-
-
-if __name__ == "__main__":
-    main()

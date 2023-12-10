@@ -174,9 +174,4 @@ def move_character(direction, character):
     character["X-coordinate"] += direction_keys[direction][1]
 
 
-def main():
-    pass
 
-
-if __name__ == "__main__":
-    main()
