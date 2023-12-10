@@ -30,7 +30,7 @@ def random_encounter(monster, character, board):
 
     random_number = randint(1, 10)
 
-    encounter_chance = (11, 12)
+    encounter_chance = (1, 7)
     if random_number in encounter_chance:
         return fight_or_flee(monster)
     else:
