@@ -31,7 +31,7 @@ Level Up and Gain new Skills
 
 ## Building The Game
 ```
-This is text based game is built using python 
+This is a text based game is built using python 
 
 It started by developing a nice Flowchart to layout the game flow
 
