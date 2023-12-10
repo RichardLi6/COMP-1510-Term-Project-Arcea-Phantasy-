@@ -49,6 +49,10 @@ def simple_game():
             else:
                 print(f"{Style.RESET_ALL}")
 
+        else:
+            b.describe_current_location(rows, cols, board, character)
+            print("You cannot go there")
+
             char.level_up(character, chosen_character)
             goals.check_if_win(character)
 
