@@ -108,6 +108,9 @@ Python Modules
 ```
 The game is tested through using the Disjointed Equivalence Partition 
 
+Some of the unit testing will use patching to force an output from random number
+generators and force an input for user prompts
+
 Some functions will not be tested due to not being covered in Course, 
 but rest assured the is working properly as game is also played by other players 
 excluding the developers(Us). 
