@@ -357,7 +357,7 @@ def try_to_flee_successfully(character):
     :post-condition: character will be able to run from the final boss at 70% chance
     :return: return Boolean True if character escaped successfully otherwise Boolean False
     """
-    chance = random.randint(1, 10)
+    chance = randint(1, 10)
     cannot_flee_chance = (1, 5, 10)
 
     if chance not in cannot_flee_chance:
