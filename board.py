@@ -152,8 +152,8 @@ def validate_move(rows, columns, character, direction, board):
         to_be_x_coordinate = character["Y-coordinate"] + directions[direction]
 
         if to_be_x_coordinate < 0 or to_be_x_coordinate == columns:
+            print("You cannot go there")
             return False
-
         else:
             return True
 
