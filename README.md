@@ -1,7 +1,7 @@
 # COMP-1510-Term-Project
 
 ## Student information (Name, student number, GitHub username):
-Richard Li - A00995183 - Affinity88
+Richard Li - A00995183 - RichardLi6
 
 Richard Maceda - A01378156 - Organic156
 
@@ -127,7 +127,8 @@ Add Multipler Feature
 
 ## Afterthoughts
 ```
-For recommendations about game please reach out with email
+For recommendations about game please reach out with either emails
 Email: macedarichargr10@gmail.com
+Email: rli108@my.bcit.ca
 
 ```
