@@ -8,9 +8,9 @@ Richard Maceda - A01378156 - Organic156
 ## Game Introduction: 
 
 ````
-Doomed Odyssey: The Coming of the 4 Pillars of Threat
+Arcea Phantasy: The Coming of the 4 Pillars of Threat
 
-Welcome to "Doomed Odyssey" a captivating journey through a mystical realm teeming 
+Welcome to "Arcea Phantasy" a captivating journey through a mystical realm teeming 
 with challenges, treasures, and the echoes of ancient power. In this epic adventure, you
 will face four formidable minibosses, each guarding an essence that slowly destroys the 
 world called "Terra".
